@@ -24,7 +24,7 @@ public class TeamManager : MonoBehaviour
     {
         FlipAsNeeded();
 
-        SetTeam();
+        SetTeam(team);
     }
     
     void FlipAsNeeded() {

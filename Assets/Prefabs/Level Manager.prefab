@@ -47,8 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
-  teamLeft: {fileID: 0}
-  teamRight: {fileID: 0}
+  teamLeft: {fileID: 5759641585042060189}
+  teamRight: {fileID: 5759641583949341065}
+  debug: 0
 --- !u!1001 &3709901369269355137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,6 +110,11 @@ PrefabInstance:
 --- !u!4 &2614443053978823211 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1672077603859343530, guid: 1e4ed450a01588a4fb77497b0df8ebcd, type: 3}
+  m_PrefabInstance: {fileID: 3709901369269355137}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5759641585042060189 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8976355903925580060, guid: 1e4ed450a01588a4fb77497b0df8ebcd, type: 3}
   m_PrefabInstance: {fileID: 3709901369269355137}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3709901370328387733
@@ -175,5 +181,10 @@ PrefabInstance:
 --- !u!4 &2614443055033661503 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1672077603859343530, guid: 1e4ed450a01588a4fb77497b0df8ebcd, type: 3}
+  m_PrefabInstance: {fileID: 3709901370328387733}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5759641583949341065 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8976355903925580060, guid: 1e4ed450a01588a4fb77497b0df8ebcd, type: 3}
   m_PrefabInstance: {fileID: 3709901370328387733}
   m_PrefabAsset: {fileID: 0}
