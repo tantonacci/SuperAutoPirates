@@ -4,6 +4,7 @@ using UnityEngine;
 
  [CreateAssetMenu(fileName = "New Pirate", menuName = "Pirate")]
 public class Pirate : ScriptableObject {
+    public bool debug;
 
     public string name;
     public string desc;
@@ -22,6 +23,10 @@ public class Pirate : ScriptableObject {
     private TeamManager myTeam;
     private TeamManager enemyTeam;
 
+    public void SetDebug(bool dbg) {
+        debug = dbg;
+    }
+
     public void SetTeams(TeamManager team1, TeamManager team2) {
         myTeam = team1;
         enemyTeam = team2;
@@ -38,11 +43,11 @@ public class Pirate : ScriptableObject {
     }
 
     public void Print() {
-        Debug.Log(name + "(" + attack + "/" + health +")");
+        if (debug) Debug.Log(name + "(" + attack + "/" + health +") in Slot " + slotNum);
     }
 
     public void Print(string str) {
-        Debug.Log(str);
+        if (debug) Debug.Log(str);
     }
 
     public void PreAttack() {

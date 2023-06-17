@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
         teamL.SetEnemyTeam(teamR);
         teamR.SetEnemyTeam(teamL);
 
-        teamL.debug = debug;
-        teamR.debug = debug;
+        teamL.SetDebug(debug);
+        teamR.SetDebug(debug);
     }
 
     // Update is called once per frame
@@ -85,16 +85,19 @@ public class GameManager : MonoBehaviour
 
     void CheckWinCondition() {
         if (!teamL.HasMembersRemaining() && !teamR.HasMembersRemaining()) {
+            Print("Tie game");
             gameState = GameState.Tie;
         } else if (!teamL.HasMembersRemaining()) {
+            Print("Right Team Wins");
             gameState = GameState.Lose;
         } else if (!teamR.HasMembersRemaining()) {
+            Print("Left Team Wins");
             gameState = GameState.Win;
         }
     }
 
     void Print(string str) {
-        Debug.Log(str);
+        if (debug) Debug.Log(str);
     }
 
     enum GameState {

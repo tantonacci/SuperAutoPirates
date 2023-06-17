@@ -174,14 +174,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pirateObject: {fileID: 6246486636289839427, guid: 3e261c5646a26ca4c9f8c1519c3cfd66, type: 3}
   side: 0
-  team:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  team: []
   pirateSlots:
   - {fileID: 62108315739911503}
   - {fileID: 2949431426418811020}
   - {fileID: 2532524176968562337}
   - {fileID: 6868060427748479647}
   availableSlots: 00000000
+  debug: 0
+  enemyTeam: {fileID: 0}

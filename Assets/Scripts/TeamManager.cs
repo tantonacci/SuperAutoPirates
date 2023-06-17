@@ -60,6 +60,11 @@ public class TeamManager : MonoBehaviour
         }
 
         team = newTeam;
+
+        for (int i = 0; i < team.Count; i++) {
+            team[i] = Instantiate(team[i]);
+        }
+
         SetTeams();
         CreatePirates();
     }
@@ -73,6 +78,13 @@ public class TeamManager : MonoBehaviour
     public void SetEnemyTeam(TeamManager enemy) {
         enemyTeam = enemy;
         //SetTeams();
+    }
+
+    public void SetDebug(bool dbg) {
+        debug = dbg;
+        foreach (Pirate p in team) {
+            p.SetDebug(dbg);
+        }
     }
 
     public void PreAttack() {
