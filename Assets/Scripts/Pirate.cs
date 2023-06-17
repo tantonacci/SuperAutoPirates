@@ -13,6 +13,8 @@ public class Pirate : ScriptableObject {
     public int attack;
     public int health;
 
+    private int slotNum;
+
     public preAtks preattackType;
     public Atks attackType;
     public postAtks postattackType;
@@ -23,55 +25,88 @@ public class Pirate : ScriptableObject {
     public void SetTeams(TeamManager team1, TeamManager team2) {
         myTeam = team1;
         enemyTeam = team2;
+
+        SetSlotNum();
     }
 
+    private void SetSlotNum() {
+        slotNum = myTeam.team.IndexOf(this);
+    }
+
+    public void TakeDamage(int dmg) {
+        health -= dmg;
+    }
 
     public void Print() {
-        Debug.Log(name + ": " + desc + "(" + attack + "/" + health +")");
+        Debug.Log(name + "(" + attack + "/" + health +")");
+    }
+
+    public void Print(string str) {
+        Debug.Log(str);
     }
 
     public void PreAttack() {
+        Print();
         switch(preattackType) {
             case preAtks.none:
+                Print("--PreAttack (none)--");
+                break;
+            case preAtks.basic:
+                Print("--PreAttack (basic)--");
                 break;
             case preAtks.ranged:
-                atkRanged();
+                Print("--PreAttack (ranged)--");
                 break;
         }
     }
 
     public void Attack() {
+        Print();
         switch(attackType) {
             case Atks.none:
+                Print("--Attack (none)--");
+                break;
+            case Atks.basic:
+                Print("--Attack (basic)--");
+                atkBasic();
                 break;
             case Atks.ranged:
+                Print("--Attack (ranged)--");
                 atkRanged();
                 break;
         }
     }
 
     public void PostAttack() {
+        Print();
         switch(postattackType) {
             case postAtks.none:
+                Print("--PostAttack (none)--");
+                break;
+            case postAtks.basic:
+                Print("--PostAttack (basic)--");
                 break;
             case postAtks.ranged:
-                atkRanged();
+                Print("--PostAttack (ranged)--");
                 break;
         }
     }
 
     public enum preAtks {
         none,
+        basic,
         ranged
     }
 
     public enum Atks {
         none,
+        basic,
         ranged
     }
 
     public enum postAtks {
         none,
+        basic,
         ranged
     }
 
@@ -80,6 +115,22 @@ public class Pirate : ScriptableObject {
     // PreAttacks start with pre
     // Attacks start with atk
     // PostAttacks start with pst
+
+    void atkBasic() {
+        if (slotNum != 0) {
+            Print("Not slot 0, no attack");
+            return;
+        }
+
+        Pirate enemy = enemyTeam.GetFirstPirate();
+
+        if (enemy == null) {
+            Print("No enemy pirate to attack");
+            return;
+        }
+
+        enemy.TakeDamage(attack);
+    }
 
     void atkRanged() {
         //code for ranged attack

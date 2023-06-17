@@ -6,7 +6,7 @@ public class TeamManager : MonoBehaviour
 {
 
     public GameObject pirateObject;
-    private List<GameObject> pirates;
+    private List<GameObject> pirates = new List<GameObject>();
 
 
     public Side side;
@@ -72,7 +72,7 @@ public class TeamManager : MonoBehaviour
 
     public void SetEnemyTeam(TeamManager enemy) {
         enemyTeam = enemy;
-        SetTeams();
+        //SetTeams();
     }
 
     public void PreAttack() {
@@ -94,11 +94,13 @@ public class TeamManager : MonoBehaviour
     }
 
     public void CheckPirates() {
-        foreach (Pirate p in team) {
+        for (int i = team.Count - 1; i >= 0; i--) {
+            Pirate p = team[i];
             if (p.health <= 0) {
                 team.Remove(p);
             }
         }
+
         SetTeam(team);
     }
 
@@ -106,6 +108,27 @@ public class TeamManager : MonoBehaviour
         foreach (Pirate p in team) {
             p.Print();
         }
+    }
+
+    public Pirate GetFirstPirate() {
+        if (team.Count == 0) {
+            return null;
+        }
+
+        return team[0];
+    }
+
+    public Pirate GetRandomPirate() {
+        if (team.Count == 0) {
+            return null;
+        }
+
+        //Random random = new Random();
+        return team[Random.Range(0,team.Count)];
+    }
+
+    public bool HasMembersRemaining() {
+        return team.Count > 0;
     }
 }
 

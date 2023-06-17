@@ -44,6 +44,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void RunRound() {
+
+        Print("Running Round");
+
         PreAttack();
         Attack();
         PostAttack();
@@ -81,7 +84,13 @@ public class GameManager : MonoBehaviour
     }
 
     void CheckWinCondition() {
-
+        if (!teamL.HasMembersRemaining() && !teamR.HasMembersRemaining()) {
+            gameState = GameState.Tie;
+        } else if (!teamL.HasMembersRemaining()) {
+            gameState = GameState.Lose;
+        } else if (!teamR.HasMembersRemaining()) {
+            gameState = GameState.Win;
+        }
     }
 
     void Print(string str) {
