@@ -15,12 +15,16 @@ public class TeamManager : MonoBehaviour
 
     public bool[] availableSlots;
 
+    public bool debug;
+
+    public TeamManager enemyTeam;
+
     // Start is called before the first frame update
     void Start()
     {
         FlipAsNeeded();
 
-        CreatePirates();
+        SetTeam();
     }
     
     void FlipAsNeeded() {
@@ -50,27 +54,59 @@ public class TeamManager : MonoBehaviour
         }
     }
 
-    void SetTeam(List<Pirate> newTeam) {
-
+    public void SetTeam(List<Pirate> newTeam) {
         foreach (GameObject pirate in pirates) {
             Destroy(pirate);
         }
 
         team = newTeam;
+        SetTeams();
+        CreatePirates();
+    }
+
+    public void SetTeams() {
+        foreach (Pirate p in team) {
+            p.SetTeams(this, enemyTeam);
+        }
+    }
+
+    public void SetEnemyTeam(TeamManager enemy) {
+        enemyTeam = enemy;
+        SetTeams();
     }
 
     public void PreAttack() {
-
+        foreach (Pirate p in team) {
+            p.PreAttack();
+        }
     }
 
     public void Attack() {
-
+        foreach (Pirate p in team) {
+            p.Attack();
+        }
     }
 
     public void PostAttack() {
-
+        foreach (Pirate p in team) {
+            p.PostAttack();
+        }
     }
 
+    public void CheckPirates() {
+        foreach (Pirate p in team) {
+            if (p.health <= 0) {
+                team.Remove(p);
+            }
+        }
+        SetTeam(team);
+    }
+
+    public void Print() {
+        foreach (Pirate p in team) {
+            p.Print();
+        }
+    }
 }
 
 public enum Side {

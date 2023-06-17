@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private TeamManager teamL;
     private TeamManager teamR;
 
+    public bool debug;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,12 @@ public class GameManager : MonoBehaviour
 
         teamL = teamLeft.GetComponent<TeamManager>();
         teamR = teamRight.GetComponent<TeamManager>();
+
+        teamL.SetEnemyTeam(teamR);
+        teamR.SetEnemyTeam(teamL);
+
+        teamL.debug = debug;
+        teamR.debug = debug;
     }
 
     // Update is called once per frame
@@ -36,7 +43,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void RunRound() {
         PreAttack();
         Attack();
@@ -46,22 +52,40 @@ public class GameManager : MonoBehaviour
     }
 
     void PreAttack() {
+        if (debug) Print("PreAttack");
+
         teamL.PreAttack();
         teamR.PreAttack();
+        CheckPirates();
     }
 
     void Attack() {
+        if (debug) Print("Attack");
+
         teamL.Attack();
         teamR.Attack();
+        CheckPirates();
     }
 
     void PostAttack() {
+        if (debug) Print("PostAttack");
+
         teamL.PostAttack();
         teamR.PostAttack();
+        CheckPirates();
+    }
+
+    void CheckPirates() {
+        teamL.CheckPirates();
+        teamR.CheckPirates();
     }
 
     void CheckWinCondition() {
 
+    }
+
+    void Print(string str) {
+        Debug.Log(str);
     }
 
     enum GameState {
