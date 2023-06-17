@@ -62,6 +62,9 @@ public class Pirate : ScriptableObject {
 			case Atks.sharpShooter:
 				atkSharpShooter();
 				break;
+			case Atks.heal:
+				atkHeal();
+				break;
         }
     }
 
@@ -89,7 +92,8 @@ public class Pirate : ScriptableObject {
 		basic,
         ranged,
 		poison,
-		sharpShooter
+		sharpShooter,
+		heal
     }
 
     public enum postAtks {
@@ -145,6 +149,6 @@ public class Pirate : ScriptableObject {
 	}
 	
 	void atkHeal(){
-		myTeam.team[myTeam.team.IndexOf(this) - 1].health += myTeam.team[myTeam.team.IndexOf(this) - 1].maxhealth * .5;
+		myTeam.team[myTeam.team.IndexOf(this) - 1].health += (int)myTeam.team[myTeam.team.IndexOf(this) - 1].maxhealth / 2;
 	}
 }
