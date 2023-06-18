@@ -42,6 +42,10 @@ public class Pirate : ScriptableObject {
     private void SetSlotNum() {
         slotNum = myTeam.team.IndexOf(this);
     }
+	
+	public void TakeDamage(int dmg) {
+		health -= dmg;
+	}
 
     public void Print() {
         if (debug) Debug.Log(name + "(" + attack + "/" + health +") in Slot " + slotNum);
@@ -146,27 +150,13 @@ public class Pirate : ScriptableObject {
     // Attacks start with atk
     // PostAttacks start with pst
 
-    void atkBasic() {
-        if (slotNum != 0) {
-            Print("Not slot 0, no attack");
-            return;
-        }
-
-        Pirate enemy = enemyTeam.GetFirstPirate();
-
-        if (enemy == null) {
-            Print("No enemy pirate to attack");
-            return;
-        }
-
-        enemy.damage();
-    }
-
 	public int damage() {
 		// damage calculation so easier to implement buffs and debuffs
 		double dmg = attack;
-		if(myTeam.team[myTeam.team.IndexOf(this) - 1].name == "lucky pirate"){
-			dmg *= 1.25;
+		if(slotNum < myTeam.team.Count - 1){
+			if(myTeam.team[slotNum + 1].name == "lucky pirate"){
+				dmg *= 1.25;
+			}
 		}
 		if(charmed != 0){
 			int rng = Random.Range(1,100);
@@ -230,36 +220,46 @@ public class Pirate : ScriptableObject {
 	
 	// attacks
 
-    void atkRanged() {
-        //code for ranged attack
-		if(enemyTeam.team[0].name == "confused"){
-			if(myTeam.team.IndexOf(this) < myTeam.team.Count){
-				myTeam.team[myTeam.team.IndexOf(this) + 1].health -= damage();
+	void atkBasic() {
+        if (slotNum != 0) {
+            Print("Not slot 0, no attack");
+            return;
+        }
+
+        Pirate enemy = enemyTeam.GetFirstPirate();
+
+        if (enemy == null) {
+            Print("No enemy pirate to attack");
+            return;
+        }
+
+		if(enemy.name == "confused"){
+			if(slotNum < myTeam.team.Count){
+				myTeam.team[slotNum + 1].TakeDamage(damage());
 			}
 		}
 		else{
-			enemyTeam.team[0].health -= damage();
+			enemy.TakeDamage(damage());
+			TakeDamage(enemy.damage());
 		}
     }
 	
-	void atkBasic() {
-        //code for basic attack
+	void atkRanged() {
+        //code for ranged attack
 		if(enemyTeam.team[0].name == "confused"){
-			if(myTeam.team.IndexOf(this) < myTeam.team.Count){
-				myTeam.team[myTeam.team.IndexOf(this) + 1].health -= damage();
-				health -= myTeam.team[myTeam.team.IndexOf(this) + 1].damage();
+			if(slotNum < myTeam.team.Count){
+				myTeam.team[slotNum + 1].health -= damage();
 			}
 		}
 		else{
 			enemyTeam.team[0].health -= damage();
-			health -= enemyTeam.team[0].damage();
 		}
     }
 	
 	void atkPoison() {
 		if(enemyTeam.team[0].name == "confused"){
-			if(myTeam.team.IndexOf(this) < myTeam.team.Count){
-				myTeam.team[myTeam.team.IndexOf(this) + 1].poison = true;
+			if(slotNum < myTeam.team.Count){
+				myTeam.team[slotNum + 1].poison = true;
 			}
 		}
 		else{
@@ -269,8 +269,8 @@ public class Pirate : ScriptableObject {
 	
 	void atkSharpShooter() {
 		if(enemyTeam.team[0].name == "confused"){
-			if(myTeam.team.IndexOf(this) < myTeam.team.Count){
-				myTeam.team[myTeam.team.IndexOf(this) + 1].health -= damage();
+			if(slotNum < myTeam.team.Count){
+				myTeam.team[slotNum + 1].health -= damage();
 			}
 		}
 		else{
@@ -279,8 +279,8 @@ public class Pirate : ScriptableObject {
 	}
 	
 	void atkHeal() {
-		if(myTeam.team.IndexOf(this) >= 1){
-			myTeam.team[myTeam.team.IndexOf(this) - 1].health += (int)myTeam.team[myTeam.team.IndexOf(this) - 1].maxhealth / 2;
+		if(slotNum >= 1){
+			myTeam.team[slotNum - 1].health += (int)myTeam.team[slotNum - 1].maxhealth / 2;
 		}
 	}
 	
