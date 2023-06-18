@@ -101,9 +101,13 @@ public class GameManager : MonoBehaviour
 	void ResetVariables(){
 		foreach (Pirate p in teamL.team) {
             p.charmed = 0;
+			p.music = false;
+			p.confused = false;
         }
 		foreach (Pirate p in teamR.team) {
             p.charmed = 0;
+			p.music = false;
+			p.confused = false;
         }
 	}
 

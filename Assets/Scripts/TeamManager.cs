@@ -106,6 +106,9 @@ public class TeamManager : MonoBehaviour
     public void PostAttack() {
         foreach (Pirate p in team) {
             p.PostAttack();
+			if (p.poison == true) {
+                p.health -= 2;
+            }
         }
     }
 
