@@ -15,6 +15,8 @@ public class PirateDisplay : MonoBehaviour {
     public TextMeshProUGUI attackText;
     public TextMeshProUGUI healthText;
 
+    public GameManager game;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,5 +39,9 @@ public class PirateDisplay : MonoBehaviour {
     public void SetPirate(Pirate newPirate) {
         pirate = newPirate;
         UpdateValues();
+    }
+
+    public void AddPirateToTeam() {
+        game.AddPirateToTeam(pirate);
     }
 }

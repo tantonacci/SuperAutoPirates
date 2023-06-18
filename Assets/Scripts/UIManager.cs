@@ -28,4 +28,9 @@ public class UIManager : MonoBehaviour
     public void PlayRound() {
         game.RunRound();
     }
+
+    public void  QuitGame() {
+        Application.Quit();
+    }
+
 }

@@ -49,8 +49,13 @@ public class TeamManager : MonoBehaviour
             newPirate.transform.position = pirateSlots[i].position;
 
             pirates.Add(newPirate);
+        }
+    }
 
-            //pirate.Print();
+    public void AddPirateToTeam(Pirate p) {
+        if (team.Count < 4) {
+            team.Add(p);
+            SetTeam(team);
         }
     }
 
@@ -77,7 +82,6 @@ public class TeamManager : MonoBehaviour
 
     public void SetEnemyTeam(TeamManager enemy) {
         enemyTeam = enemy;
-        //SetTeams();
     }
 
     public void SetDebug(bool dbg) {

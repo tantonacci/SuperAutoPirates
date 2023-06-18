@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public bool debug;
 
+    private bool addToLeftTeam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +36,18 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AddToLeftTeam(bool add) {
+        addToLeftTeam = add;
+    } 
+
+    public void AddPirateToTeam(Pirate p) {
+        if (addToLeftTeam) {
+            teamL.AddPirateToTeam(p);
+        } else {
+            teamR.AddPirateToTeam(p);
+        }
     }
 
     public void RunBattle() {
