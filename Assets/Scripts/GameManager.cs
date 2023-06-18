@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour
         PreAttack();
         Attack();
         PostAttack();
-
+		ResetVariables();
+		
         CheckWinCondition();
     }
 
@@ -96,6 +97,15 @@ public class GameManager : MonoBehaviour
         teamL.CheckPirates();
         teamR.CheckPirates();
     }
+	
+	void ResetVariables(){
+		foreach (Pirate p in teamL.team) {
+            p.charmed = 0;
+        }
+		foreach (Pirate p in teamR.team) {
+            p.charmed = 0;
+        }
+	}
 
     void CheckWinCondition() {
         if (!teamL.HasMembersRemaining() && !teamR.HasMembersRemaining()) {

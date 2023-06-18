@@ -12,6 +12,7 @@ public class Pirate : ScriptableObject {
     public Sprite artwork;
 
     public int attack;
+	public int maxhealth;
     public int health;
 
     private int slotNum;
@@ -27,6 +28,10 @@ public class Pirate : ScriptableObject {
         debug = dbg;
     }
 
+	public bool poison;
+	public int charmed;
+	public bool confused;
+	
     public void SetTeams(TeamManager team1, TeamManager team2) {
         myTeam = team1;
         enemyTeam = team2;
@@ -36,10 +41,6 @@ public class Pirate : ScriptableObject {
 
     private void SetSlotNum() {
         slotNum = myTeam.team.IndexOf(this);
-    }
-
-    public void TakeDamage(int dmg) {
-        health -= dmg;
     }
 
     public void Print() {
@@ -62,6 +63,12 @@ public class Pirate : ScriptableObject {
             case preAtks.ranged:
                 Print("--PreAttack (ranged)--");
                 break;
+			case preAtks.organize:
+				preOrganize();
+				break;
+			case preAtks.princess:
+				prePrincess();
+				break;
         }
     }
 
@@ -79,6 +86,15 @@ public class Pirate : ScriptableObject {
                 Print("--Attack (ranged)--");
                 atkRanged();
                 break;
+			case Atks.poison:
+				atkPoison();
+				break;
+			case Atks.sharpShooter:
+				atkSharpShooter();
+				break;
+			case Atks.heal:
+				atkHeal();
+				break;
         }
     }
 
@@ -94,25 +110,34 @@ public class Pirate : ScriptableObject {
             case postAtks.ranged:
                 Print("--PostAttack (ranged)--");
                 break;
+			case postAtks.poison:
+				atkPoison();
+				break;
         }
     }
 
     public enum preAtks {
         none,
         basic,
-        ranged
+        ranged,
+		organize,
+		princess
     }
 
     public enum Atks {
         none,
-        basic,
-        ranged
+		basic,
+        ranged,
+		poison,
+		sharpShooter,
+		heal
     }
 
     public enum postAtks {
         none,
         basic,
-        ranged
+        ranged,
+		poison
     }
 
 
@@ -134,10 +159,137 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-        enemy.TakeDamage(attack);
+        enemy.damage();
     }
+
+	public int damage() {
+		// damage calculation so easier to implement buffs and debuffs
+		double dmg = attack;
+		if(myTeam.team[myTeam.team.IndexOf(this) - 1].name == "lucky pirate"){
+			dmg *= 1.25;
+		}
+		if(charmed != 0){
+			int rng = Random.Range(1,100);
+			if(charmed == 1){
+				if(rng <= 20){
+					dmg = 0;
+				}
+			}
+			if(charmed == 2){
+				if(rng <= 15){
+					dmg = 0;
+				}
+			}
+			if(charmed == 3){
+				if(rng <= 10){
+					dmg = 0;
+				}
+			}
+			if(charmed == 4){
+				if(rng <= 5){
+					dmg = 0;
+				}
+			}
+		}
+		
+		return (int)dmg;
+	}
+
+	// pre attacks
+	void preOrganize() {
+		//code for organizer pirate attack
+		int n = enemyTeam.team.Count;
+		System.Random rng = new System.Random();
+		while(n > 1){
+			n--;
+			int k = rng.Next(n + 1);
+			Pirate p = enemyTeam.team[k];
+			enemyTeam.team[k] = enemyTeam.team[n];
+			enemyTeam.team[n] = p;
+		}
+	}
+	
+	void prePrincess() {
+		int pos = 0;
+		foreach (Pirate p in enemyTeam.team) {
+            if(pos == 0){
+				p.charmed = 1;
+			}
+			if(pos == 1){
+				p.charmed = 2;
+			}
+			if(pos == 2){
+				p.charmed = 3;
+			}
+			if(pos == 3){
+				p.charmed = 4;
+			}
+			pos++;
+        }
+	}
+	
+	// attacks
 
     void atkRanged() {
         //code for ranged attack
+		if(enemyTeam.team[0].name == "confused"){
+			if(myTeam.team.IndexOf(this) < myTeam.team.Count){
+				myTeam.team[myTeam.team.IndexOf(this) + 1].health -= damage();
+			}
+		}
+		else{
+			enemyTeam.team[0].health -= damage();
+		}
     }
+	
+	void atkBasic() {
+        //code for basic attack
+		if(enemyTeam.team[0].name == "confused"){
+			if(myTeam.team.IndexOf(this) < myTeam.team.Count){
+				myTeam.team[myTeam.team.IndexOf(this) + 1].health -= damage();
+				health -= myTeam.team[myTeam.team.IndexOf(this) + 1].damage();
+			}
+		}
+		else{
+			enemyTeam.team[0].health -= damage();
+			health -= enemyTeam.team[0].damage();
+		}
+    }
+	
+	void atkPoison() {
+		if(enemyTeam.team[0].name == "confused"){
+			if(myTeam.team.IndexOf(this) < myTeam.team.Count){
+				myTeam.team[myTeam.team.IndexOf(this) + 1].poison = true;
+			}
+		}
+		else{
+			enemyTeam.team[0].poison = true;
+		}
+	}
+	
+	void atkSharpShooter() {
+		if(enemyTeam.team[0].name == "confused"){
+			if(myTeam.team.IndexOf(this) < myTeam.team.Count){
+				myTeam.team[myTeam.team.IndexOf(this) + 1].health -= damage();
+			}
+		}
+		else{
+			enemyTeam.team[enemyTeam.team.Count].health -= damage();
+		}
+	}
+	
+	void atkHeal() {
+		if(myTeam.team.IndexOf(this) >= 1){
+			myTeam.team[myTeam.team.IndexOf(this) - 1].health += (int)myTeam.team[myTeam.team.IndexOf(this) - 1].maxhealth / 2;
+		}
+	}
+	
+	// post attacks
+	void pstPoison() {
+		foreach (Pirate p in enemyTeam.team) {
+            if (p.poison == true) {
+                p.health -= 2;
+            }
+        }
+	}
 }
