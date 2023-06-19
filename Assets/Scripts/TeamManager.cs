@@ -93,19 +93,25 @@ public class TeamManager : MonoBehaviour
 
     public void PreAttack() {
         foreach (Pirate p in team) {
-            p.PreAttack();
+			if(!p.disabled){
+				p.PreAttack();
+			}
         }
     }
 
     public void Attack() {
         foreach (Pirate p in team) {
-            p.Attack();
+			if(!p.disabled){
+				p.Attack();
+			}
         }
     }
 
     public void PostAttack() {
         foreach (Pirate p in team) {
-            p.PostAttack();
+			if(!p.disabled){
+				p.PostAttack();
+			}
 			if (p.poison == true) {
                 p.health -= 2;
             }

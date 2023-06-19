@@ -103,11 +103,13 @@ public class GameManager : MonoBehaviour
             p.charmed = 0;
 			p.music = false;
 			p.confused = false;
+			p.disabled = false;
         }
 		foreach (Pirate p in teamR.team) {
             p.charmed = 0;
 			p.music = false;
 			p.confused = false;
+			p.disabled = false;
         }
 	}
 
