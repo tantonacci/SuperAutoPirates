@@ -359,6 +359,17 @@ public class Pirate : ScriptableObject {
 				p.TakeDamage(dmg);
 			}
 		}
+		else if(enemyTeam.team[enemyTeam.team.Count - 1].name == "millenial pirate"){
+			int dmg = damage();
+			enemyTeam.team[enemyTeam.team.Count - 1].TakeDamage(dmg);
+			TakeDamage(enemyTeam.team[enemyTeam.team.Count - 1].damage());
+			if(dmg > 0){
+				attack -= 2; 
+				if(attack < 0){
+					attack = 0;
+				}
+			}
+		}
 		else{
 			enemyTeam.team[enemyTeam.team.Count - 1].TakeDamage(damage());
 		}
@@ -500,6 +511,17 @@ public class Pirate : ScriptableObject {
 			}
 			TakeDamage(enemy.damage());
 		}
+		else if(enemy.name == "millenial pirate"){
+			int dmg = damage();
+			enemy.TakeDamage(dmg);
+			TakeDamage(enemy.damage());
+			if(dmg > 0){
+				attack -= 2; 
+				if(attack < 0){
+					attack = 0;
+				}
+			}
+		}
 		else{
 			enemy.TakeDamage(damage());
 			TakeDamage(enemy.damage());
@@ -552,6 +574,16 @@ public class Pirate : ScriptableObject {
 			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
 			foreach(Pirate p in enemyTeam.team){
 				p.TakeDamage(dmg);
+			}
+		}
+		else if(enemy.name == "millenial pirate"){
+			int dmg = damage();
+			enemy.TakeDamage(dmg);
+			if(dmg > 0){
+				attack -= 2; 
+				if(attack < 0){
+					attack = 0;
+				}
 			}
 		}
 		else{
@@ -612,6 +644,18 @@ public class Pirate : ScriptableObject {
 			enemy.poison = true;
 			TakeDamage(enemy.damage());
 		}
+		else if(enemy.name == "millenial pirate"){
+			int dmg = damage();
+			enemy.TakeDamage(dmg);
+			TakeDamage(enemy.damage());
+			enemy.poison = true;
+			if(dmg > 0){
+				attack -= 2; 
+				if(attack < 0){
+					attack = 0;
+				}
+			}
+		}
 		else{
 			enemy.TakeDamage(damage());
 			TakeDamage(enemy.damage());
@@ -639,6 +683,16 @@ public class Pirate : ScriptableObject {
 				if(rng <= 50 && dmg > 0){
 					dmg /= 2;
 					TakeDamage(dmg);
+				}
+			}
+			else if(p.name == "millenial pirate"){
+				int dmg = damage();
+				p.TakeDamage(dmg);
+				if(dmg > 0){
+					attack -= 2; 
+					if(attack < 0){
+						attack = 0;
+					}
 				}
 			}
 			p.TakeDamage(damage());
@@ -691,6 +745,21 @@ public class Pirate : ScriptableObject {
 				p.TakeDamage(dmg);
 			}
 			TakeDamage(enemy.damage());
+			int rng = Random.Range(1,100);
+			if(rng <= 35){
+				enemy.health = 0;
+			}
+		}
+		else if(enemy.name == "millenial pirate"){
+			int dmg = damage();
+			enemy.TakeDamage(dmg);
+			TakeDamage(enemy.damage());
+			if(dmg > 0){
+				attack -= 2; 
+				if(attack < 0){
+					attack = 0;
+				}
+			}
 			int rng = Random.Range(1,100);
 			if(rng <= 35){
 				enemy.health = 0;
@@ -766,6 +835,21 @@ public class Pirate : ScriptableObject {
 			attack = temp;
 			TakeDamage(enemy.damage());
 		}
+		else if(enemy.name == "millenial pirate"){
+			int rng = Random.Range(0,100);
+			int temp = attack;
+			attack = (int)(attack * ((50.0 + rng) / 100.0));
+			int dmg = damage();
+			enemy.TakeDamage(dmg);
+			attack = temp;
+			TakeDamage(enemy.damage());
+			if(dmg > 0){
+				attack -= 2; 
+				if(attack < 0){
+					attack = 0;
+				}
+			}
+		}
 		else{
 			int rng = Random.Range(0,100);
 			int temp = attack;
@@ -807,6 +891,9 @@ public class Pirate : ScriptableObject {
 			if(rng <= 50){
 				int rng2 = Random.Range(1,3);
 				enemy.attack -= rng2;
+				if(enemy.attack < 0){
+					enemy.attack = 0;
+				}
 				enemy.maxhealth -= rng;
 				if(enemy.health > maxhealth){
 					enemy.health = maxhealth;
@@ -816,6 +903,9 @@ public class Pirate : ScriptableObject {
 		else{
 			int rng = Random.Range(1,3);
 			enemy.attack -= rng;
+			if(enemy.attack < 0){
+				enemy.attack = 0;
+			}
 			enemy.maxhealth -= rng;
 			if(enemy.health > maxhealth){
 				enemy.health = maxhealth;
@@ -872,6 +962,17 @@ public class Pirate : ScriptableObject {
 				p.TakeDamage(dmg);
 			}
 			TakeDamage(enemy.damage());
+		}
+		else if(enemy.name == "millenial pirate"){
+			int dmg = damage();
+			enemy.TakeDamage(dmg);
+			TakeDamage(enemy.damage());
+			if(dmg > 0){
+				attack -= 2; 
+				if(attack < 0){
+					attack = 0;
+				}
+			}
 		}
 		else{
 			enemy.TakeDamage(damage());
@@ -931,6 +1032,16 @@ public class Pirate : ScriptableObject {
 			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
 			foreach(Pirate p in enemyTeam.team){
 				p.TakeDamage(dmg);
+			}
+		}
+		else if(enemy.name == "millenial pirate"){
+			int dmg = damage();
+			enemy.TakeDamage(dmg);
+			if(dmg > 0){
+				attack -= 2; 
+				if(attack < 0){
+					attack = 0;
+				}
 			}
 		}
 		else{
