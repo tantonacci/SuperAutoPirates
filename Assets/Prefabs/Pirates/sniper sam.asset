@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7631f34f49b3b2045883b0d28645f6b7, type: 3}
-  m_Name: UnhappyHarry
+  m_Name: sniper sam
   m_EditorClassIdentifier: 
   debug: 0
-  name: Unhappy Harry
-  desc: I've never seen him smile
-  artwork: {fileID: 21300000, guid: dcea51d6065d64246aeec467afeff684, type: 3}
-  attack: 4
-  maxhealth: 4
-  health: 4
-  preattackType: 0
+  name: Sniper Sam
+  desc: who gave kit a gun
+  artwork: {fileID: 21300000, guid: 17fa84703485d314b8d6b5216987d4b1, type: 3}
+  attack: 3
+  maxhealth: 0
+  health: 1
+  preattackType: 5
   attackType: 1
   postattackType: 0
   poison: 0
