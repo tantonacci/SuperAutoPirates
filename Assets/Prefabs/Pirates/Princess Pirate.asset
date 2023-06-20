@@ -18,7 +18,7 @@ MonoBehaviour:
   artwork: {fileID: 21300000, guid: 7804200a5203ea24eb419701e096a31f, type: 3}
   attack: 2
   health: 2
-  pirateType: 1
+  pirateType: 4
   poison: 0
   confused: 0
   music: 0

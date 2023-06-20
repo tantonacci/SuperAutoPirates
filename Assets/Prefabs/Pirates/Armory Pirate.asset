@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Armory Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: 
+  name: Armory Pirate
   desc: 
-  artwork: {fileID: 0}
-  attack: 0
-  health: 0
-  pirateType: 0
+  artwork: {fileID: 21300000, guid: 591abe8b8e4c4f643bbb3281ac445192, type: 3}
+  attack: 2
+  health: 2
+  pirateType: 6
   poison: 0
   confused: 0
   music: 0

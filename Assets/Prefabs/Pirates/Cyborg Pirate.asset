@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Cyborg Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: 
+  name: Cyborg Pirate
   desc: 
-  artwork: {fileID: 0}
-  attack: 0
-  health: 0
-  pirateType: 0
+  artwork: {fileID: 21300000, guid: 4f5dce8222b1f684486fc72d29c371c6, type: 3}
+  attack: 1
+  health: 5
+  pirateType: 14
   poison: 0
   confused: 0
   music: 0

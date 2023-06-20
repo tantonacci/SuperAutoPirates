@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Quick Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: 
+  name: Quick Pirate
   desc: 
-  artwork: {fileID: 0}
-  attack: 0
-  health: 0
+  artwork: {fileID: 21300000, guid: 75b4ff019670e15459fd086787cf8b11, type: 3}
+  attack: 2
+  health: 2
   pirateType: 0
   poison: 0
   confused: 0

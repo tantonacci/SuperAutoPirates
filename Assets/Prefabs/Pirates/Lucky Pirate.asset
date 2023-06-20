@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   name: Lucky Pirate
-  desc: his knees creak constantly
-  artwork: {fileID: 21300000, guid: 17fa84703485d314b8d6b5216987d4b1, type: 3}
+  desc: 
+  artwork: {fileID: 21300000, guid: c5d30b102237fd64c8b4f7d66c097315, type: 3}
   attack: 2
-  health: 2
+  health: 3
   pirateType: 1
   poison: 0
   confused: 0

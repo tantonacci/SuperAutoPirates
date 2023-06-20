@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: Organizer Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: Unhappy Harry
-  desc: I've never seen him smile
-  artwork: {fileID: 21300000, guid: dcea51d6065d64246aeec467afeff684, type: 3}
-  attack: 4
-  maxhealth: 4
-  health: 4
-  pirateType: 1
+  name: Organizer Pirate
+  desc: 
+  artwork: {fileID: 21300000, guid: ab633ce544eb0a742992de330937a7da, type: 3}
+  attack: 2
+  health: 3
+  pirateType: 3
   poison: 0
   confused: 0
   music: 0

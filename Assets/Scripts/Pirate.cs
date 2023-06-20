@@ -46,8 +46,38 @@ public class Pirate : ScriptableObject {
     }
 
 	public void TakeDamage(int dmg) {
+		if(myTeam.GetPirate(slotNum) != null){
+			if(myTeam.GetPirate(slotNum).pirateType == PirateType.repair){
+				dmg -= 1;
+			}
+		}
+		if(myTeam.GetPirate(slotNum + 1) != null){
+			if(myTeam.GetPirate(slotNum + 1).pirateType == PirateType.repair){
+				dmg -= 1;
+			}
+		}
+		if(myTeam.GetPirate(slotNum - 1) != null){
+			if(myTeam.GetPirate(slotNum - 1).pirateType == PirateType.repair){
+				dmg -= 1;
+			}
+		}
 		if (dmg < 0) return;
-		health -= dmg;
+		
+		if(pirateType == PirateType.anarchist){
+			dmg /= myTeam.team.Count;
+			foreach(Pirate p in myTeam.team){
+				p.health -= dmg;
+			}
+		}
+		else if(pirateType == PirateType.quick){
+			int rng = Random.Range(1, 100);
+			if(rng < 50){
+				return;
+			}
+		}
+		else{
+			health -= dmg;
+		}
 
 		if (music) {
 			health -= 1;
@@ -241,9 +271,9 @@ public class Pirate : ScriptableObject {
 				Print("--PostAttack (heal)--");
 				pstHeal();
 				break;
-			case PirateType.dullshooter:
-				Print("--PostAttack (dullshooter)--");
-				pstDullshooter();
+			case PirateType.flameShooter:
+				Print("--PostAttack (flameshooter)--");
+				pstFlameShooter();
 				break;
 			case PirateType.teacher:
 				Print("--PostAttack (teacher)--");
@@ -274,7 +304,7 @@ public class Pirate : ScriptableObject {
 		cyborg,
 		sapper,
 		teacher,
-		dullshooter,
+		flameShooter,
 		heal,
 		police,
 		space,
@@ -282,7 +312,9 @@ public class Pirate : ScriptableObject {
 		gamble,
 		splash,
 		lucky,
-		repair
+		repair,
+		anarchist,
+		quick
 	}
 
 #endregion
@@ -552,7 +584,7 @@ public class Pirate : ScriptableObject {
 		}
 	}
 	
-	void pstDullshooter() {
+	void pstFlameShooter() {
 		Pirate p = enemyTeam.GetFirstPirate();
 		p.TakeDamage(attack);
 	}
