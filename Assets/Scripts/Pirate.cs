@@ -14,7 +14,6 @@ public class Pirate : ScriptableObject {
     public Sprite artwork;
 
     public int attack;
-	public int maxhealth;
     public int health;
 
     private int slotNum;
