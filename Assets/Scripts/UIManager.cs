@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour
 {
 
     public GameObject LevelManager;
+	public AudioSource audio1;
+	public AudioSource audio2;
 
     private GameManager game;
 
@@ -13,6 +15,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         game = LevelManager.GetComponent<GameManager>();
+		audio1.Play();
     }
 
     // Update is called once per frame
@@ -33,4 +36,16 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
+	public void PlayAudio1() {
+		audio1.Play();
+	}
+	public void PauseAudio1() {
+		audio1.Pause();
+	}
+	public void PlayAudio2() {
+		audio2.Play();
+	}
+	public void PauseAudio2() {
+		audio2.Pause();
+	}
 }

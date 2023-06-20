@@ -398,9 +398,8 @@ public class Pirate : ScriptableObject {
             return;
         }
 		
-		foreach (Pirate p in enemyTeam.team) {
-            p.confused = true;
-        }
+		Pirate enemy = enemyTeam.GetFirstPirate();
+		enemy.confused = true;
 	}
 	
 	void preGrapple() {
