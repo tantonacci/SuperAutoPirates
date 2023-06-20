@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class GameManager : MonoBehaviour
 
         teamL.SetDebug(debug);
         teamR.SetDebug(debug);
+		
+		teamR.SetPremadeTeam1();
     }
 
     // Update is called once per frame

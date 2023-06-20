@@ -167,6 +167,10 @@ public class TeamManager : MonoBehaviour
     public bool HasMembersRemaining() {
         return team.Count > 0;
     }
+	
+	public void SetPremadeTeam1() {
+		
+	}
 }
 
 public enum Side {
