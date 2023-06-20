@@ -4,6 +4,8 @@ using UnityEngine;
 
  [CreateAssetMenu(fileName = "New Pirate", menuName = "Pirate")]
 public class Pirate : ScriptableObject {
+
+#region "Variables"
     public bool debug;
 
     public string name;
@@ -17,24 +19,22 @@ public class Pirate : ScriptableObject {
 
     private int slotNum;
 
-    public preAtks preattackType;
-    public Atks attackType;
-    public postAtks postattackType;
+    public PirateType pirateType;
 
     private TeamManager myTeam;
     private TeamManager enemyTeam;
 
-    public void SetDebug(bool dbg) {
-        debug = dbg;
-    }
+	private Pirate target;
 
 	public bool poison;
-	public int charmed;
 	public bool confused;
 	public bool music;
 	public bool muscleTurn;
 	public bool disabled;
-	
+#endregion
+
+#region "Properties"
+
     public void SetTeams(TeamManager team1, TeamManager team2) {
         myTeam = team1;
         enemyTeam = team2;
@@ -45,10 +45,29 @@ public class Pirate : ScriptableObject {
     private void SetSlotNum() {
         slotNum = myTeam.team.IndexOf(this);
     }
-	
+
 	public void TakeDamage(int dmg) {
+		if (dmg < 0) return;
 		health -= dmg;
+
+		if (music) {
+			health -= 1;
+		}
 	}
+
+	public void Heal(int heal) {
+		if (heal < 0) return;
+
+		health += heal;
+	}
+		
+	public void SetTarget(Pirate p) {
+		target = p;
+	}
+
+#endregion
+
+#region "Utility"
 
     public void Print() {
         if (debug) Debug.Log(name + "(" + attack + "/" + health +") in Slot " + slotNum);
@@ -58,100 +77,140 @@ public class Pirate : ScriptableObject {
         if (debug) Debug.Log(str);
     }
 
+	public void SetDebug(bool dbg) {
+        debug = dbg;
+    }
+
+	public void ShowAsCard(bool card) {
+		//TODO: Impliment
+	}
+
+#endregion
+
+#region "Basic Battle Functions"
+
+	public void StartOfRound() {
+		switch(pirateType) {
+			case PirateType.sharpShooter:
+				SetTarget(enemyTeam.GetLastPirate());
+				break;
+			default:
+				SetTarget(enemyTeam.GetFirstPirate());
+				break;
+		}
+
+		music = false;
+		disabled = false;
+	}
+
     public void PreAttack() {
         Print();
-        switch(preattackType) {
-            case preAtks.none:
+		if (disabled) {
+			return;
+		}
+
+        switch(pirateType) {
+            case PirateType.none:
                 Print("--PreAttack (none)--");
                 break;
-            case preAtks.basic:
+			default:
+            case PirateType.basic:
                 Print("--PreAttack (basic)--");
                 break;
-            case preAtks.ranged:
+            case PirateType.ranged:
                 Print("--PreAttack (ranged)--");
                 break;
-			case preAtks.organize:
+			case PirateType.organize:
 				Print("--PreAttack (organize)--");
 				preOrganize();
 				break;
-			case preAtks.princess:
+			case PirateType.princess:
 				Print("--PreAttack (princess)--");
 				prePrincess();
 				break;
-			case preAtks.sharpShooter:
+			case PirateType.sharpShooter:
 				Print("--PreAttack (sharpshooter)--");
 				preSharpShooter();
 				break;
-			case preAtks.armory:
+			case PirateType.armory:
 				Print("--PreAttack (armory)--");
 				preArmory();
 				break;
-			case preAtks.music:
+			case PirateType.music:
 				Print("--PreAttack (music)--");
 				preMusic();
 				break;
-			case preAtks.confuse:
+			case PirateType.confuse:
 				Print("--PreAttack (confuse)--");
 				preConfuse();
 				break;
-			case preAtks.grapple:
+			case PirateType.grapple:
 				Print("--PreAttack (grapple)--");
 				preGrapple();
 				break;
-			case preAtks.hack:
+			case PirateType.hack:
 				Print("--PreAttack (hack)--");
 				preHack();
 				break;
-			case preAtks.policeCaptain:
+			case PirateType.policeCaptain:
 				Print("--PreAttack (police captain)--");
 				prePoliceCaptain();
 				break;
-			case preAtks.distributor:
+			case PirateType.distributor:
 				Print("--PreAttack (distributor)--");
 				preDistributor();
+				break;
+			case PirateType.lucky:
+				Print("--PreAttack (lucky)--");
+				preLucky();
 				break;
         }
     }
 
     public void Attack() {
         Print();
-        switch(attackType) {
-            case Atks.none:
+		if (disabled) {
+			return;
+		}
+
+        switch(pirateType) {
+            case PirateType.none:
                 Print("--Attack (none)--");
                 break;
-            case Atks.basic:
+			default:
+            case PirateType.basic:
                 Print("--Attack (basic)--");
                 atkBasic();
                 break;
-            case Atks.ranged:
+            case PirateType.ranged:
                 Print("--Attack (ranged)--");
                 atkRanged();
                 break;
-			case Atks.poison:
+			case PirateType.poison:
 				Print("--Attack (poison)--");
 				atkPoison();
 				break;
-			case Atks.cyborg:
+			case PirateType.cyborg:
 				Print("--Attack (cyborg)--");
 				atkCyborg();
 				break;
-			case Atks.splash:
+			case PirateType.splash:
 				Print("--Attack (splash)--");
 				atkSplash();
 				break;
-			case Atks.gamble:
+			case PirateType.gamble:
 				Print("--Attack (gamble)--");
 				atkGamble();
 				break;
-			case Atks.muscle:
+			case PirateType.muscle:
 				Print("--Attack (muscle)--");
 				atkMuscle();
 				break;
-			case Atks.space:
+			case PirateType.space:
 				Print("--Attack (space)--");
 				atkSpace();
 				break;
-			case Atks.police:
+			case PirateType.police:
 				Print("--Attack (police)--");
 				atkPolice();
 				break;
@@ -160,37 +219,46 @@ public class Pirate : ScriptableObject {
 
     public void PostAttack() {
         Print();
-        switch(postattackType) {
-            case postAtks.none:
+		if (poison) {
+			health -= 2;
+		}
+
+		if (disabled) {
+			return;
+		}
+
+        switch(pirateType) {
+            case PirateType.none:
                 Print("--PostAttack (none)--");
                 break;
-            case postAtks.basic:
+			default:
+            case PirateType.basic:
                 Print("--PostAttack (basic)--");
                 break;
-            case postAtks.ranged:
+            case PirateType.ranged:
                 Print("--PostAttack (ranged)--");
                 break;
-			case postAtks.heal:
+			case PirateType.heal:
 				Print("--PostAttack (heal)--");
 				pstHeal();
 				break;
-			case postAtks.dullshooter:
+			case PirateType.dullshooter:
 				Print("--PostAttack (dullshooter)--");
 				pstDullshooter();
 				break;
-			case postAtks.teacher:
+			case PirateType.teacher:
 				Print("--PostAttack (teacher)--");
 				pstTeacher();
 				break;
-			case postAtks.sapper:
+			case PirateType.sapper:
 				Print("--PostAttack (sapper)--");
 				pstSapper();
 				break;
         }
     }
 
-    public enum preAtks {
-        none,
+	public enum PirateType {
+		none,
         basic,
         ranged,
 		organize,
@@ -202,85 +270,30 @@ public class Pirate : ScriptableObject {
 		grapple,
 		hack,
 		policeCaptain,
-		distributor
-    }
-
-    public enum Atks {
-        none,
-		basic,
-        ranged,
+		distributor,
 		poison,
 		cyborg,
-		splash,
-		gamble,
-		muscle,
-		space,
-		police
-    }
-
-    public enum postAtks {
-        none,
-        basic,
-        ranged,
-		heal,
-		dullshooter,
+		sapper,
 		teacher,
-		sapper
-    }
+		dullshooter,
+		heal,
+		police,
+		space,
+		muscle,
+		gamble,
+		splash,
+		lucky,
+		repair
+	}
 
+#endregion
 
     //Standard:
     // PreAttacks start with pre
     // Attacks start with atk
     // PostAttacks start with pst
 
-	public int damage() {
-		// damage calculation so easier to implement buffs and debuffs
-		double dmg = attack;
-		if(slotNum < myTeam.team.Count - 1){
-			if(myTeam.team[slotNum + 1].name == "lucky pirate"){
-				int rng = Random.Range(20,50);
-				dmg *= ((100.0 + rng) / 100.0);
-			}
-			if(myTeam.team[slotNum + 1].name == "repair pirate"){
-				dmg *= .6;
-			}
-		}
-		if(slotNum > 0){
-			if(myTeam.team[slotNum - 1].name == "repair pirate"){
-				dmg *= .6;
-			}
-		}
-		if(charmed != 0){
-			int rng = Random.Range(1,100);
-			if(charmed == 1){
-				if(rng <= 20){
-					return 0;
-				}
-			}
-			if(charmed == 2){
-				if(rng <= 15){
-					return 0;
-				}
-			}
-			if(charmed == 3){
-				if(rng <= 10){
-					return 0;
-				}
-			}
-			if(charmed == 4){
-				if(rng <= 5){
-					return 0;
-				}
-			}
-		}
-		if(music){
-			dmg *= 1.25;
-		}
-		
-		return (int)dmg;
-	}
-
+#region "PreAttack Functions"
 	// pre attacks
 	void preOrganize() {
 		if (slotNum != 0) {
@@ -298,6 +311,15 @@ public class Pirate : ScriptableObject {
 			enemyTeam.team[n] = p;
 		}
 	}
+
+	void preLucky() {
+		if (slotNum == 0) {
+			return;
+		}
+
+		Pirate p = myTeam.GetPirate(slotNum - 1);
+		p.attack += 2;
+	}
 	
 	void prePrincess() {
 		if (slotNum != 0) {
@@ -307,99 +329,64 @@ public class Pirate : ScriptableObject {
 		
 		int pos = 0;
 		foreach (Pirate p in enemyTeam.team) {
-            if(pos == 0){
-				p.charmed = 1;
-			}
-			if(pos == 1){
-				p.charmed = 2;
-			}
-			if(pos == 2){
-				p.charmed = 3;
-			}
-			if(pos == 3){
-				p.charmed = 4;
+			int rng = Random.Range(1,100);
+			switch(pos) {
+				case 0:
+					if(rng <= 20){
+						p.disabled = true;
+					}
+					break;
+				case 1:
+					if(rng <= 15){
+						p.disabled = true;
+					}
+					break;
+				case 2:
+					if(rng <= 10){
+						p.disabled = true;
+					}
+					break;
+				case 3:
+					if(rng <= 5){
+						p.disabled = true;
+					}
+					break;
 			}
 			pos++;
         }
 	}
 	
 	void preSharpShooter() {
-		if(enemyTeam.team[0].confused){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				if(slotNum < myTeam.team.Count - 1){
-					myTeam.team[slotNum + 1].TakeDamage((int)(.6 * damage()));
-				}
-			}
-		}
-		else if(enemyTeam.team[enemyTeam.team.Count - 1].name == "quick pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				enemyTeam.team[enemyTeam.team.Count - 1].TakeDamage(damage());
-			}
-		}
-		else if(enemyTeam.team[enemyTeam.team.Count - 1].name == "shield pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				enemyTeam.team[enemyTeam.team.Count - 1].TakeDamage(damage());
-			}
-		}
-		else if(enemyTeam.team[enemyTeam.team.Count - 1].name == "rubber pirate"){
-			int dmg = damage();
-			enemyTeam.team[enemyTeam.team.Count - 1].TakeDamage(dmg);
-			int rng = Random.Range(1,100);
-			if(rng <= 50 && dmg > 0){
-				dmg /= 2;
-				TakeDamage(dmg);
-			}
-		}
-		else if(enemyTeam.team[enemyTeam.team.Count - 1].name == "anarchist pirate"){
-			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
-			foreach(Pirate p in enemyTeam.team){
-				p.TakeDamage(dmg);
-			}
-		}
-		else if(enemyTeam.team[enemyTeam.team.Count - 1].name == "millenial pirate"){
-			int dmg = damage();
-			enemyTeam.team[enemyTeam.team.Count - 1].TakeDamage(dmg);
-			TakeDamage(enemyTeam.team[enemyTeam.team.Count - 1].damage());
-			if(dmg > 0){
-				attack -= 2; 
-				if(attack < 0){
-					attack = 0;
-				}
-			}
-		}
-		else{
-			enemyTeam.team[enemyTeam.team.Count - 1].TakeDamage(damage());
-		}
+		Pirate p = enemyTeam.GetLastPirate();
+		p.TakeDamage(attack);
 	}
 	
 	void preArmory() {
-		if(slotNum < myTeam.team.Count - 1){
-			myTeam.team[slotNum + 1].maxhealth += 2;
-			myTeam.team[slotNum + 1].health += 2;
-		}
-		if(slotNum > 0){
-			myTeam.team[slotNum - 1].maxhealth += 2;
-			myTeam.team[slotNum - 1].health += 2;
-		}
+		Pirate p1 = myTeam.GetPirate(slotNum - 1);
+		Pirate p2 = myTeam.GetPirate(slotNum + 1);
+
+		if (p1 != null) p1.Heal(2);
+		if (p2 != null) p2.Heal(2);
 	}
-	
-	void preMusic() {
-		foreach (Pirate p in enemyTeam.team) {
-            p.music = true;
-        }
-	}
-	
+		
 	void preConfuse() {
 		if (slotNum != 0) {
             Print("Not slot 0, no attack");
             return;
         }
 		
+		if(Random.Range(1,100) > 50) {
+			Pirate p = enemyTeam.GetFirstPirate();
+			Pirate p2 = enemyTeam.GetPirate(1); //Getting Second pirate
+			if (p2 != null) {
+				p.SetTarget(p2);
+			}
+		}
+	}
+
+	void preMusic() {
 		foreach (Pirate p in enemyTeam.team) {
-            p.confused = true;
+            p.music = true;
         }
 	}
 	
@@ -409,56 +396,53 @@ public class Pirate : ScriptableObject {
             return;
         }
 		
-		foreach (Pirate p in enemyTeam.team) {
-			int rng = Random.Range(1, 100);
-			if(rng <= 50){
-				p.disabled = true;
-			}
-        }
+		Pirate p = enemyTeam.GetFirstPirate();
+		int rng = Random.Range(1, 100);
+		if(rng <= 50){
+			p.disabled = true;
+		}
 	}
 	
 	void preHack() {
-		foreach (Pirate p in enemyTeam.team) {
-			int rng = Random.Range(1, 100);
-			if(rng <= 50){
-				p.disabled = true;
-			}
-        }
+		Pirate p = enemyTeam.GetRandomPirate();
+		int rng = Random.Range(1, 100);
+		if(rng <= 50){
+			p.disabled = true;
+		}
 	}
 	
 	void prePoliceCaptain() {
 		foreach (Pirate p in myTeam.team) {
-			if(p.name == "police pirate"){
+			if(p.pirateType == PirateType.police || 
+						p.pirateType == PirateType.policeCaptain){
 				attack += 1;
-				maxhealth += 1;
-				health += 1;
+				Heal(1);
 			}
 		}
 	}
 	
 	void preDistributor() {
-		int rng = Random.Range(0, myTeam.team.Count - 1);
-		int rng2 = Random.Range(0, 1);
-		if(rng2 == 0){
-			myTeam.team[rng].attack += 3;
-		}
-		else{
-			myTeam.team[rng].maxhealth += 3;
-			myTeam.team[rng].health += 3;
+		Pirate p = myTeam.GetRandomPirate();
+		if(Random.Range(0, 1) == 0) {
+			p.attack += 3;
+		} else {
+			p.Heal(3);
 		}
 	}
 	
 	void preMechanize() {
 		foreach (Pirate p in enemyTeam.team) {
-			if(p.name == "repair pirate"){
+			if(p.pirateType == PirateType.repair){
 				attack += 5;
-				maxhealth += 5;
-				health += 5;
+				Heal(5);
+				break;
 			}
         }
 	}
 	
-	
+#endregion
+
+#region "Attack Functions"
 	// attacks
 
 	void atkBasic() {
@@ -467,128 +451,11 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-        Pirate enemy = enemyTeam.GetFirstPirate();
-
-        if (enemy == null) {
-            Print("No enemy pirate to attack");
-            return;
-        }
-
-		if(enemy.confused){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				if(slotNum < myTeam.team.Count - 1){
-					myTeam.team[slotNum + 1].TakeDamage((int)(.6 * damage()));
-				}
-			}
-		}
-		else if(enemy.name == "repair pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				TakeDamage(enemy.damage());
-			}
-		}
-		else if(enemy.name == "quick pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				enemy.TakeDamage(damage());
-			}
-		}
-		else if(enemy.name == "rubber pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			int rng = Random.Range(1,100);
-			if(rng <= 50 && dmg > 0){
-				dmg /= 2;
-				TakeDamage(dmg);
-			}
-			TakeDamage(enemy.damage());
-		}
-		else if(enemy.name == "anarchist pirate"){
-			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
-			foreach(Pirate p in enemyTeam.team){
-				p.TakeDamage(dmg);
-			}
-			TakeDamage(enemy.damage());
-		}
-		else if(enemy.name == "millenial pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			TakeDamage(enemy.damage());
-			if(dmg > 0){
-				attack -= 2; 
-				if(attack < 0){
-					attack = 0;
-				}
-			}
-		}
-		else{
-			enemy.TakeDamage(damage());
-			TakeDamage(enemy.damage());
-		}
+		target.TakeDamage(attack);
     }
 	
 	void atkRanged() {
-		if (slotNum != 0) {
-            Print("Not slot 0, no attack");
-            return;
-        }
-
-        Pirate enemy = enemyTeam.GetFirstPirate();
-		
-		if (enemy == null) {
-            Print("No enemy pirate to attack");
-            return;
-        }
-		
-		if(enemy.confused){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				if(slotNum < myTeam.team.Count - 1){
-					myTeam.team[slotNum + 1].TakeDamage(damage());
-				}
-			}
-		}
-		else if(enemy.name == "quick pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				enemy.TakeDamage(damage());
-			}
-		}
-		else if(enemy.name == "shield pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				enemy.TakeDamage(damage());
-			}
-		}
-		else if(enemy.name == "rubber pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			int rng = Random.Range(1,100);
-			if(rng <= 50 && dmg > 0){
-				dmg /= 2;
-				TakeDamage(dmg);
-			}
-		}
-		else if(enemy.name == "anarchist pirate"){
-			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
-			foreach(Pirate p in enemyTeam.team){
-				p.TakeDamage(dmg);
-			}
-		}
-		else if(enemy.name == "millenial pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			if(dmg > 0){
-				attack -= 2; 
-				if(attack < 0){
-					attack = 0;
-				}
-			}
-		}
-		else{
-			enemy.TakeDamage(damage());
-		}
+		target.TakeDamage(attack);
     }
 	
 	void atkPoison() {
@@ -597,70 +464,8 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-        Pirate enemy = enemyTeam.GetFirstPirate();
-
-        if (enemy == null) {
-            Print("No enemy pirate to attack");
-            return;
-        }
-
-		if(enemy.confused){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				if(slotNum < myTeam.team.Count - 1){
-					int dmg = damage();
-					myTeam.team[slotNum + 1].TakeDamage((int)(.6 * damage()));
-					if(dmg > 0){
-						myTeam.team[slotNum + 1].poison = true;
-					}
-				}
-			}
-		}
-		else if(enemy.name == "quick pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				TakeDamage(enemy.damage());
-			}
-		}
-		else if(enemy.name == "rubber pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			if(dmg > 0){
-				enemy.poison = true;
-			}
-			int rng = Random.Range(1,100);
-			if(rng <= 50 && dmg > 0){
-				dmg /= 2;
-				TakeDamage(dmg);
-				poison = true;
-			}
-			TakeDamage(enemy.damage());
-		}
-		else if(enemy.name == "anarchist pirate"){
-			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
-			foreach(Pirate p in enemyTeam.team){
-				p.TakeDamage(dmg);
-			}
-			enemy.poison = true;
-			TakeDamage(enemy.damage());
-		}
-		else if(enemy.name == "millenial pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			TakeDamage(enemy.damage());
-			enemy.poison = true;
-			if(dmg > 0){
-				attack -= 2; 
-				if(attack < 0){
-					attack = 0;
-				}
-			}
-		}
-		else{
-			enemy.TakeDamage(damage());
-			TakeDamage(enemy.damage());
-			enemy.poison = true;
-		}
+        target.poison = true;
+		target.TakeDamage(attack);
 	}
 	
 	void atkCyborg() {
@@ -670,32 +475,7 @@ public class Pirate : ScriptableObject {
         }
 		
 		foreach(Pirate p in enemyTeam.team){
-			if(p.name == "shield pirate"){
-				int rng = Random.Range(1,100);
-				if(rng <= 50){
-					continue;
-				}
-			}
-			else if(p.name == "rubber pirate"){
-				int dmg = damage();
-				p.TakeDamage(dmg);
-				int rng = Random.Range(1,100);
-				if(rng <= 50 && dmg > 0){
-					dmg /= 2;
-					TakeDamage(dmg);
-				}
-			}
-			else if(p.name == "millenial pirate"){
-				int dmg = damage();
-				p.TakeDamage(dmg);
-				if(dmg > 0){
-					attack -= 2; 
-					if(attack < 0){
-						attack = 0;
-					}
-				}
-			}
-			p.TakeDamage(damage());
+			p.TakeDamage(attack);
 		}
 	}
 	
@@ -705,73 +485,10 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-        Pirate enemy = enemyTeam.GetFirstPirate();
-
-        if (enemy == null) {
-            Print("No enemy pirate to attack");
-            return;
-        }
-
-		if(enemy.confused){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				if(slotNum < myTeam.team.Count - 1){
-					myTeam.team[slotNum + 1].TakeDamage((int)(.6 * damage()));
-				}
-			}
-		}
-		else if(enemy.name == "quick pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				TakeDamage(enemy.damage());
-			}
-		}
-		else if(enemy.name == "rubber pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			int rng = Random.Range(1,100);
-			if(rng <= 50 && dmg > 0){
-				dmg /= 2;
-				TakeDamage(dmg);
-			}
-			int rng2 = Random.Range(1,100);
-			if(rng2 <= 35){
-				enemy.health = 0;
-			}
-		}
-		else if(enemy.name == "anarchist pirate"){
-			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
-			foreach(Pirate p in enemyTeam.team){
-				p.TakeDamage(dmg);
-			}
-			TakeDamage(enemy.damage());
-			int rng = Random.Range(1,100);
-			if(rng <= 35){
-				enemy.health = 0;
-			}
-		}
-		else if(enemy.name == "millenial pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			TakeDamage(enemy.damage());
-			if(dmg > 0){
-				attack -= 2; 
-				if(attack < 0){
-					attack = 0;
-				}
-			}
-			int rng = Random.Range(1,100);
-			if(rng <= 35){
-				enemy.health = 0;
-			}
-		}
-		else{
-			enemy.TakeDamage(damage());
-			TakeDamage(enemy.damage());
-			int rng = Random.Range(1,100);
-			if(rng <= 35){
-				enemy.health = 0;
-			}
+		if (Random.Range(0, 100) > 20) {
+			target.TakeDamage(100);
+		} else {
+        	target.TakeDamage(attack);
 		}
 	}
 	
@@ -781,83 +498,9 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-        Pirate enemy = enemyTeam.GetFirstPirate();
-
-        if (enemy == null) {
-            Print("No enemy pirate to attack");
-            return;
-        }
-
-		if(enemy.confused){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				if(slotNum < myTeam.team.Count - 1){
-					int rng2 = Random.Range(0,100);
-					int temp = attack;
-					attack = (int)(attack * ((50.0 + rng2) / 100.0));
-					myTeam.team[slotNum + 1].TakeDamage((int)(.6 * damage()));
-					attack = temp;
-				}
-			}
-		}
-		else if(enemy.name == "repair pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				int rng2 = Random.Range(0,100);
-				int temp = attack;
-				attack = (int)(attack * ((50.0 + rng2) / 100.0));
-				enemy.TakeDamage(damage());
-				attack = temp;
-			}
-		}
-		else if(enemy.name == "rubber pirate"){
-			int rng = Random.Range(0,100);
-			int temp = attack;
-			attack = (int)(attack * ((50.0 + rng) / 100.0));
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			int rng2 = Random.Range(1,100);
-			if(rng2 <= 50 && dmg > 0){
-				dmg /= 2;
-				TakeDamage(dmg);
-			}
-			attack = temp;
-			TakeDamage(enemy.damage());
-		}
-		else if(enemy.name == "anarchist pirate"){
-			int rng = Random.Range(0,100);
-			int temp = attack;
-			attack = (int)(attack * ((50.0 + rng) / 100.0));
-			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
-			foreach(Pirate p in enemyTeam.team){
-				p.TakeDamage(dmg);
-			}
-			attack = temp;
-			TakeDamage(enemy.damage());
-		}
-		else if(enemy.name == "millenial pirate"){
-			int rng = Random.Range(0,100);
-			int temp = attack;
-			attack = (int)(attack * ((50.0 + rng) / 100.0));
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			attack = temp;
-			TakeDamage(enemy.damage());
-			if(dmg > 0){
-				attack -= 2; 
-				if(attack < 0){
-					attack = 0;
-				}
-			}
-		}
-		else{
-			int rng = Random.Range(0,100);
-			int temp = attack;
-			attack = (int)(attack * ((50.0 + rng) / 100.0));
-			enemy.TakeDamage(damage());
-			attack = temp;
-			TakeDamage(enemy.damage());
-		}
+		int rng = Random.Range(0,100);
+		int tempAttack = (int)(attack * ((50.0 + rng) / 100.0));
+		target.TakeDamage(tempAttack);
 	}
 	
 	void atkMuscle() {
@@ -867,10 +510,9 @@ public class Pirate : ScriptableObject {
         }
 		if(!muscleTurn){
 			muscleTurn = true;
+			return;
 		}
-		else{
-			atkBasic();
-		}
+		target.TakeDamage(attack);
 	}
 	
 	void atkSpace() {
@@ -878,38 +520,11 @@ public class Pirate : ScriptableObject {
             Print("Not slot 0, no attack");
             return;
         }
-		
-		Pirate enemy = enemyTeam.GetFirstPirate();
 
-        if (enemy == null) {
-            Print("No enemy pirate to attack");
-            return;
-        }
-		
-		if(enemy.confused){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				int rng2 = Random.Range(1,3);
-				enemy.attack -= rng2;
-				if(enemy.attack < 0){
-					enemy.attack = 0;
-				}
-				enemy.maxhealth -= rng;
-				if(enemy.health > maxhealth){
-					enemy.health = maxhealth;
-				}
-			}
-		}
-		else{
-			int rng = Random.Range(1,3);
-			enemy.attack -= rng;
-			if(enemy.attack < 0){
-				enemy.attack = 0;
-			}
-			enemy.maxhealth -= rng;
-			if(enemy.health > maxhealth){
-				enemy.health = maxhealth;
-			}
+		int rng = Random.Range(1,3);
+		target.attack -= rng;
+		if(target.attack <= 0){
+			target.attack = 1;
 		}
 	}
 	
@@ -919,153 +534,49 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-        Pirate enemy = enemyTeam.GetFirstPirate();
+		target.TakeDamage(attack);
 
-        if (enemy == null) {
-            Print("No enemy pirate to attack");
-            return;
-        }
-
-		if(enemy.confused){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				if(slotNum < myTeam.team.Count - 1){
-					myTeam.team[slotNum + 1].TakeDamage((int)(.6 * damage()));
-				}
-			}
-		}
-		else if(enemy.name == "repair pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				TakeDamage(enemy.damage());
-			}
-		}
-		else if(enemy.name == "quick pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				enemy.TakeDamage(damage());
-			}
-		}
-		else if(enemy.name == "rubber pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			int rng = Random.Range(1,100);
-			if(rng <= 50 && dmg > 0){
-				dmg /= 2;
-				TakeDamage(dmg);
-			}
-			TakeDamage(enemy.damage());
-		}
-		else if(enemy.name == "anarchist pirate"){
-			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
-			foreach(Pirate p in enemyTeam.team){
-				p.TakeDamage(dmg);
-			}
-			TakeDamage(enemy.damage());
-		}
-		else if(enemy.name == "millenial pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			TakeDamage(enemy.damage());
-			if(dmg > 0){
-				attack -= 2; 
-				if(attack < 0){
-					attack = 0;
-				}
-			}
-		}
-		else{
-			enemy.TakeDamage(damage());
-			TakeDamage(enemy.damage());
-		}
-		int rng2 = Random.Range(0, enemyTeam.team.Count - 1);
-		enemyTeam.team[rng2].TakeDamage((int)(.5 * damage()));
+		Pirate p = enemyTeam.GetRandomPirate();
+		p.TakeDamage((int)Mathf.Floor(attack / 2));
     }
+
+#endregion	
 	
-	
+#region "PostAttack Functions"
 	// post attacks
 
 	void pstHeal() {
-		if(slotNum >= 1){
-			myTeam.team[slotNum - 1].health += (int)myTeam.team[slotNum - 1].maxhealth / 2;
+		Pirate p = myTeam.GetPirate(slotNum - 1);
+
+		if (p != null) {
+			p.Heal(3);
 		}
 	}
 	
 	void pstDullshooter() {
-		Pirate enemy = enemyTeam.GetFirstPirate();
-		
-		if (enemy == null) {
-            Print("No enemy pirate to attack");
-            return;
-        }
-		
-		if(enemy.confused){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				if(slotNum < myTeam.team.Count - 1){
-					myTeam.team[slotNum + 1].TakeDamage(damage());
-				}
-			}
-		}
-		else if(enemy.name == "quick pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				enemy.TakeDamage(damage());
-			}
-		}
-		else if(enemy.name == "shield pirate"){
-			int rng = Random.Range(1,100);
-			if(rng <= 50){
-				enemy.TakeDamage(damage());
-			}
-		}
-		else if(enemy.name == "rubber pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			int rng = Random.Range(1,100);
-			if(rng <= 50 && dmg > 0){
-				dmg /= 2;
-				TakeDamage(dmg);
-			}
-		}
-		else if(enemy.name == "anarchist pirate"){
-			int dmg = (int)(1.0 / enemyTeam.team.Count * damage());
-			foreach(Pirate p in enemyTeam.team){
-				p.TakeDamage(dmg);
-			}
-		}
-		else if(enemy.name == "millenial pirate"){
-			int dmg = damage();
-			enemy.TakeDamage(dmg);
-			if(dmg > 0){
-				attack -= 2; 
-				if(attack < 0){
-					attack = 0;
-				}
-			}
-		}
-		else{
-			enemy.TakeDamage(damage());
-		}
+		Pirate p = enemyTeam.GetFirstPirate();
+		p.TakeDamage(attack);
 	}
 	
 	void pstTeacher() {
-		if(slotNum < myTeam.team.Count - 1){
-			myTeam.team[slotNum + 1].maxhealth += 1;
-			myTeam.team[slotNum + 1].health += 1;
-			myTeam.team[slotNum + 1].attack += 1;
+		Pirate p = myTeam.GetPirate(slotNum + 1);
+
+		if (p == null) {
+			return;
 		}
+
+		p.attack += 1;
+		p.Heal(1);
 	}
 	
 	void pstSapper() {
-		int rng = Random.Range(0, enemyTeam.team.Count - 1);
-		int rng2 = Random.Range(0, myTeam.team.Count - 1);
-		enemyTeam.team[rng].health -= 2;
-		myTeam.team[rng2].health += 2;
-		if(myTeam.team[rng2].health > myTeam.team[rng2].maxhealth){
-			myTeam.team[rng2].maxhealth += 2;
-		}
-		
+		Pirate enemy = enemyTeam.GetRandomPirate();
+		Pirate friend = myTeam.GetRandomPirate();
+
+		enemy.TakeDamage(2);
+		friend.Heal(2);
 	}
+
+#endregion
 	
 }

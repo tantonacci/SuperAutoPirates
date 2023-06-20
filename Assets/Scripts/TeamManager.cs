@@ -74,6 +74,11 @@ public class TeamManager : MonoBehaviour
         CreatePirates();
     }
 
+    public void ClearTeam() {
+        team.Clear();
+        SetTeam(team);
+    }
+
     public void SetTeams() {
         foreach (Pirate p in team) {
             p.SetTeams(this, enemyTeam);
@@ -91,34 +96,31 @@ public class TeamManager : MonoBehaviour
         }
     }
 
+    public void StartOfRound() {
+        foreach (Pirate p in team) {
+            p.StartOfRound();
+        }
+    }
+
     public void PreAttack() {
         foreach (Pirate p in team) {
-			if(!p.disabled){
-				p.PreAttack();
-			}
+            p.PreAttack();
         }
     }
 
     public void Attack() {
         foreach (Pirate p in team) {
-			if(!p.disabled){
-				p.Attack();
-			}
+            p.Attack();
         }
     }
 
     public void PostAttack() {
         foreach (Pirate p in team) {
-			if(!p.disabled){
-				p.PostAttack();
-			}
-			if (p.poison == true) {
-                p.health -= 2;
-            }
+            p.PostAttack();
         }
     }
 
-    public void CheckPirates() {
+    public bool CheckPirates() {
         for (int i = team.Count - 1; i >= 0; i--) {
             Pirate p = team[i];
             if (p.health <= 0) {
@@ -127,6 +129,8 @@ public class TeamManager : MonoBehaviour
         }
 
         SetTeam(team);
+
+        return team.Count == 0;
     }
 
     public void Print() {
@@ -135,12 +139,20 @@ public class TeamManager : MonoBehaviour
         }
     }
 
-    public Pirate GetFirstPirate() {
-        if (team.Count == 0) {
+    public Pirate GetPirate(int p) {
+        if (p < 0 || team.Count < p + 1) {
             return null;
         }
 
-        return team[0];
+        return team[p];
+    }
+
+    public Pirate GetFirstPirate() {
+        return GetPirate(0);
+    }
+    
+    public Pirate GetLastPirate() {
+        return GetPirate(team.Count - 1);
     }
 
     public Pirate GetRandomPirate() {

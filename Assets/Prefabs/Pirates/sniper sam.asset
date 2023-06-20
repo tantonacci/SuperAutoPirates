@@ -19,11 +19,8 @@ MonoBehaviour:
   attack: 3
   maxhealth: 0
   health: 1
-  preattackType: 5
-  attackType: 1
-  postattackType: 0
+  pirateType: 5
   poison: 0
-  charmed: 0
   confused: 0
   music: 0
   muscleTurn: 0

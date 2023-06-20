@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     public bool debug;
 
-    private bool addToLeftTeam;
+    private bool addToLeftTeam = true;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +50,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ClearLeftTeam() {
+        teamL.ClearTeam();
+    }
+
+    public void ClearRightTeam() {
+        teamR.ClearTeam();
+    }
+
     public void RunBattle() {
         while (gameState == GameState.Running) {
             RunRound();
@@ -58,60 +66,46 @@ public class GameManager : MonoBehaviour
     }
 
     public void RunRound() {
-
         Print("Running Round");
 
-        PreAttack();
-        Attack();
-        PostAttack();
-		ResetVariables();
-		
-        CheckWinCondition();
+        StartOfRound();
+        if (PreAttack() || Attack() || PostAttack()) {
+            CheckWinCondition();
+        }
+    }
+    
+    void StartOfRound() {
+        teamL.StartOfRound();
+        teamR.StartOfRound();
     }
 
-    void PreAttack() {
+    bool PreAttack() {
         if (debug) Print("PreAttack");
 
         teamL.PreAttack();
         teamR.PreAttack();
-        CheckPirates();
+        return CheckPirates();
     }
 
-    void Attack() {
+    bool Attack() {
         if (debug) Print("Attack");
 
         teamL.Attack();
         teamR.Attack();
-        CheckPirates();
+        return CheckPirates();
     }
 
-    void PostAttack() {
+    bool PostAttack() {
         if (debug) Print("PostAttack");
 
         teamL.PostAttack();
         teamR.PostAttack();
-        CheckPirates();
+        return CheckPirates();
     }
 
-    void CheckPirates() {
-        teamL.CheckPirates();
-        teamR.CheckPirates();
+    bool CheckPirates() {
+        return teamL.CheckPirates() || teamR.CheckPirates();
     }
-	
-	void ResetVariables(){
-		foreach (Pirate p in teamL.team) {
-            p.charmed = 0;
-			p.music = false;
-			p.confused = false;
-			p.disabled = false;
-        }
-		foreach (Pirate p in teamR.team) {
-            p.charmed = 0;
-			p.music = false;
-			p.confused = false;
-			p.disabled = false;
-        }
-	}
 
     void CheckWinCondition() {
         if (!teamL.HasMembersRemaining() && !teamR.HasMembersRemaining()) {
