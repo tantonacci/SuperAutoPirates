@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Armory Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: Armory Pirate
-  desc: 
+  name: Konstantin
+  desc: Armorer
   artwork: {fileID: 21300000, guid: 591abe8b8e4c4f643bbb3281ac445192, type: 3}
   attack: 2
   health: 2

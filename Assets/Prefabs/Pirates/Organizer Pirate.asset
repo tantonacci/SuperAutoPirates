@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Organizer Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: Organizer Pirate
-  desc: 
+  name: bethany
+  desc: Organizer
   artwork: {fileID: 21300000, guid: ab633ce544eb0a742992de330937a7da, type: 3}
   attack: 2
   health: 3

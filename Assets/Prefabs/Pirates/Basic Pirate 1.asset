@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7631f34f49b3b2045883b0d28645f6b7, type: 3}
-  m_Name: Hacker Pirate
+  m_Name: Basic Pirate 1
   m_EditorClassIdentifier: 
   debug: 0
-  name: Ji-Min
-  desc: Hacker
-  artwork: {fileID: 21300000, guid: 0b60fb05eda36bd4c8bb50bc2bf35c95, type: 3}
+  name: Ozzy
+  desc: Basic
+  artwork: {fileID: 21300000, guid: 857e1166342731d4ca74cecfa3e6b735, type: 3}
   attack: 2
   health: 2
-  pirateType: 10
+  pirateType: 1
   poison: 0
   confused: 0
   music: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Nurse Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: Nurse Pirate
-  desc: 
+  name: Heidi
+  desc: Nurse
   artwork: {fileID: 21300000, guid: cf2721e86e0be634c8be0c9f481f7bcf, type: 3}
   attack: 1
   health: 2

@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     {
         game = LevelManager.GetComponent<GameManager>();
 		audio1.Play();
+		audio2.Pause();
     }
 
     // Update is called once per frame

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Rubber Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: Rubber Pirate
-  desc: 
+  name: Kirsti
+  desc: Rubber
   artwork: {fileID: 21300000, guid: 28c3b0b60686301469f5186bd43f02ba, type: 3}
   attack: 2
   health: 3

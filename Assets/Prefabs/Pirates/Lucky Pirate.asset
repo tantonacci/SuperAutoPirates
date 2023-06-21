@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Lucky Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: Lucky Pirate
-  desc: 
+  name: Onni
+  desc: Lucky
   artwork: {fileID: 21300000, guid: c5d30b102237fd64c8b4f7d66c097315, type: 3}
   attack: 2
   health: 3
-  pirateType: 1
+  pirateType: 24
   poison: 0
   confused: 0
   music: 0

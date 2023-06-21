@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Princess Pirate
   m_EditorClassIdentifier: 
   debug: 1
-  name: Princess Pirate
-  desc: 
+  name: Venus
+  desc: Princess
   artwork: {fileID: 21300000, guid: 7804200a5203ea24eb419701e096a31f, type: 3}
   attack: 2
   health: 2

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Costumed Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: Costumed Pirate
-  desc: 
+  name: Antonio
+  desc: Costumed
   artwork: {fileID: 21300000, guid: 8f371ac83f42fcd4b9c368b9ef856dbf, type: 3}
   attack: 2
   health: 3

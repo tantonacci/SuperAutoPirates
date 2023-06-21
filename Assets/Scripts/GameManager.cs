@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
     }
     
     void StartOfRound() {
+		Print("start pf round");
         teamL.StartOfRound();
         teamR.StartOfRound();
     }

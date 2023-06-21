@@ -97,6 +97,7 @@ public class TeamManager : MonoBehaviour
     }
 
     public void StartOfRound() {
+		Debug.Log(team.Count);
         foreach (Pirate p in team) {
             p.StartOfRound();
         }

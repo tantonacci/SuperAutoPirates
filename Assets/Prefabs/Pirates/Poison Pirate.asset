@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Poison Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: Poison Pirate
-  desc: 
+  name: Farah
+  desc: Poisoner
   artwork: {fileID: 21300000, guid: 72681f15c7468ea41ad8c39978029e77, type: 3}
   attack: 2
   health: 3

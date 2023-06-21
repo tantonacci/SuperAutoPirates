@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Sapper Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: 
-  desc: 
-  artwork: {fileID: 0}
-  attack: 0
-  health: 0
-  pirateType: 0
+  name: Elise
+  desc: Sapper
+  artwork: {fileID: 21300000, guid: 3b56d076b911cc54ca164fa85b317fad, type: 3}
+  attack: 2
+  health: 4
+  pirateType: 15
   poison: 0
   confused: 0
   music: 0

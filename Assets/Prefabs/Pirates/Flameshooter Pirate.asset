@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Flameshooter Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: 
-  desc: 
-  artwork: {fileID: 0}
-  attack: 0
-  health: 0
-  pirateType: 0
+  name: Flint
+  desc: Flameshooter
+  artwork: {fileID: 21300000, guid: f8e53f9a3fdb70b45a7b706cc9c368c5, type: 3}
+  attack: 2
+  health: 2
+  pirateType: 17
   poison: 0
   confused: 0
   music: 0

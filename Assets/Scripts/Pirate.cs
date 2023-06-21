@@ -23,7 +23,7 @@ public class Pirate : ScriptableObject {
     private TeamManager myTeam;
     private TeamManager enemyTeam;
 
-	private Pirate target;
+	private int target;
 
 	public bool poison;
 	public bool confused;
@@ -105,8 +105,12 @@ public class Pirate : ScriptableObject {
 	}
 		
 	public void SetTarget(Pirate p) {
-		target = p;
+		target = p.slotNum;
 	}
+	
+	public Pirate GetTarget() {
+        return enemyTeam.GetPirate(target);
+    }
 
 #endregion
 
@@ -133,6 +137,7 @@ public class Pirate : ScriptableObject {
 #region "Basic Battle Functions"
 
 	public void StartOfRound() {
+		Debug.Log("pirate start of round");
 		switch(pirateType) {
 			case PirateType.sharpShooter:
 				SetTarget(enemyTeam.GetLastPirate());
@@ -142,6 +147,7 @@ public class Pirate : ScriptableObject {
 				break;
 		}
 
+		GetTarget().Print();
 		music = false;
 		disabled = false;
 	}
@@ -498,11 +504,11 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-		target.TakeDamage(attack, this);
+		GetTarget().TakeDamage(attack, this);
     }
 	
 	void atkRanged() {
-		target.TakeDamage(attack, this);
+		GetTarget().TakeDamage(attack, this);
     }
 	
 	void atkPoison() {
@@ -511,8 +517,8 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-        target.poison = true;
-		target.TakeDamage(attack, this);
+        GetTarget().poison = true;
+		GetTarget().TakeDamage(attack, this);
 	}
 	
 	void atkCyborg() {
@@ -533,9 +539,9 @@ public class Pirate : ScriptableObject {
         }
 
 		if (Random.Range(0, 100) > 20) {
-			target.TakeDamage(100, this);
+			GetTarget().TakeDamage(100, this);
 		} else {
-        	target.TakeDamage(attack, this);
+        	GetTarget().TakeDamage(attack, this);
 		}
 	}
 	
@@ -547,7 +553,7 @@ public class Pirate : ScriptableObject {
 
 		int rng = Random.Range(0,100);
 		int tempAttack = (int)(attack * ((50.0 + rng) / 100.0));
-		target.TakeDamage(tempAttack, this);
+		GetTarget().TakeDamage(tempAttack, this);
 	}
 	
 	void atkMuscle() {
@@ -559,7 +565,7 @@ public class Pirate : ScriptableObject {
 			muscleTurn = true;
 			return;
 		}
-		target.TakeDamage(attack, this);
+		GetTarget().TakeDamage(attack, this);
 	}
 	
 	void atkSpace() {
@@ -569,9 +575,9 @@ public class Pirate : ScriptableObject {
         }
 
 		int rng = Random.Range(1,3);
-		target.attack -= rng;
-		if(target.attack <= 0){
-			target.attack = 1;
+		GetTarget().attack -= rng;
+		if(GetTarget().attack <= 0){
+			GetTarget().attack = 1;
 		}
 	}
 	
@@ -581,7 +587,7 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-		target.TakeDamage(attack, this);
+		GetTarget().TakeDamage(attack, this);
 
 		Pirate p = enemyTeam.GetRandomPirate();
 		p.TakeDamage((int)Mathf.Floor(attack / 2), this);

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Sharpshooter Pirate
   m_EditorClassIdentifier: 
   debug: 0
-  name: Sniper Sam
-  desc: 
+  name: Nico
+  desc: Sharpshooter
   artwork: {fileID: 21300000, guid: 37ce215b9a913f64290e6accd13c3b66, type: 3}
   attack: 5
   health: 1
