@@ -107,7 +107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8976355903925580060, guid: 1e4ed450a01588a4fb77497b0df8ebcd, type: 3}
       propertyPath: m_Name
-      value: Team Manager
+      value: Left Team
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e4ed450a01588a4fb77497b0df8ebcd, type: 3}
@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8976355903925580060, guid: 1e4ed450a01588a4fb77497b0df8ebcd, type: 3}
       propertyPath: m_Name
-      value: Team Manager (1)
+      value: Right Team
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e4ed450a01588a4fb77497b0df8ebcd, type: 3}

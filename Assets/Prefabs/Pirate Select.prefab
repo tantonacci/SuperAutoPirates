@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6268059ab5566045b2dc3754123be7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pirate: {fileID: 0}
+  pirate: {fileID: 11400000, guid: 6a65d2ba05dfcfb4585a2ae3538cc4ac, type: 2}
   nameText: {fileID: 7651131488060156294}
   descText: {fileID: 7651131489120386056}
   artwork: {fileID: 7651131489325297671}
