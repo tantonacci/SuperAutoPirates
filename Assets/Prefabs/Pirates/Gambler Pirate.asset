@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7631f34f49b3b2045883b0d28645f6b7, type: 3}
   m_Name: Gambler Pirate
   m_EditorClassIdentifier: 
-  debug: 1
+  debug: 0
   name: Gambler Pirate
   desc: 
   artwork: {fileID: 21300000, guid: 1d47d3b67211d784ebce7340418c49ba, type: 3}
