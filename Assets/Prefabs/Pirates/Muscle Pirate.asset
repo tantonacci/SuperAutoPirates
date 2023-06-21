@@ -16,8 +16,8 @@ MonoBehaviour:
   name: Ingolf
   desc: Muscle
   artwork: {fileID: 21300000, guid: b1a8e08b58829b043ba163d8ea70f1a2, type: 3}
-  attack: 3
-  health: 5
+  attack: 5
+  health: 3
   pirateType: 21
   poison: 0
   confused: 0

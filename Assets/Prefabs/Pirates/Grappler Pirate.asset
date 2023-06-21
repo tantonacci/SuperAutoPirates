@@ -16,8 +16,8 @@ MonoBehaviour:
   name: Simon
   desc: Grappler
   artwork: {fileID: 21300000, guid: 13cea3e012c0e1e4dae0b9fdfbc3080f, type: 3}
-  attack: 2
-  health: 5
+  attack: 3
+  health: 2
   pirateType: 9
   poison: 0
   confused: 0

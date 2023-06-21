@@ -17,7 +17,7 @@ MonoBehaviour:
   desc: Quick
   artwork: {fileID: 21300000, guid: 75b4ff019670e15459fd086787cf8b11, type: 3}
   attack: 2
-  health: 2
+  health: 1
   pirateType: 27
   poison: 0
   confused: 0

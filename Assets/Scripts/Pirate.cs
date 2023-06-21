@@ -145,7 +145,6 @@ public class Pirate : ScriptableObject {
 #region "Basic Battle Functions"
 
 	public void StartOfRound() {
-		Debug.Log("pirate start of round");
 		switch(pirateType) {
 			case PirateType.sharpShooter:
 				SetTarget(enemyTeam.GetLastPirate());

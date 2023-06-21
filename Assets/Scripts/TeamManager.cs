@@ -33,6 +33,8 @@ public class TeamManager : MonoBehaviour
                 Vector3 pos = pirateSlots[i].position;
                 pos.x -= (192 * (i+1)) * 2;
                 pirateSlots[i].position = pos;
+				
+
             }
         }
     }
@@ -53,6 +55,8 @@ public class TeamManager : MonoBehaviour
     }
 
     public void AddPirateToTeam(Pirate p) {
+		Debug.Log(team);
+		Debug.Log(p);
         if (team.Count < 4) {
             team.Add(p);
             SetTeam(team);
@@ -97,7 +101,6 @@ public class TeamManager : MonoBehaviour
     }
 
     public void StartOfRound() {
-		Debug.Log(team.Count);
         foreach (Pirate p in team) {
             p.StartOfRound();
         }

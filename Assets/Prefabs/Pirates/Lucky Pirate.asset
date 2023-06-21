@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Onni
   desc: Lucky
   artwork: {fileID: 21300000, guid: c5d30b102237fd64c8b4f7d66c097315, type: 3}
-  attack: 2
+  attack: 1
   health: 3
   pirateType: 24
   poison: 0

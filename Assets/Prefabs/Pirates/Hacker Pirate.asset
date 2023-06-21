@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Ji-Min
   desc: Hacker
   artwork: {fileID: 21300000, guid: 0b60fb05eda36bd4c8bb50bc2bf35c95, type: 3}
-  attack: 2
+  attack: 3
   health: 2
   pirateType: 10
   poison: 0

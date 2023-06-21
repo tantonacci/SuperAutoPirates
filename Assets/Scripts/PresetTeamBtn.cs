@@ -21,6 +21,10 @@ public class PresetTeamBtn : MonoBehaviour
     }
 
     public void SetEnemyTeam() {
-        enemyTeam.SetTeam(team);
+        List<Pirate> newTeam = new List<Pirate>();
+		foreach (Pirate p in team) {
+			newTeam.Add(p);
+		}
+		enemyTeam.SetTeam(newTeam);
     }
 }

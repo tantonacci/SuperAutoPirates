@@ -16,8 +16,8 @@ MonoBehaviour:
   name: Giorgos
   desc: Musician
   artwork: {fileID: 21300000, guid: 3d30bb9f19b0cdb42a6c4908fe969840, type: 3}
-  attack: 2
-  health: 1
+  attack: 1
+  health: 2
   pirateType: 7
   poison: 0
   confused: 0

@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1766.8456, y: -250}
+  m_AnchoredPosition: {x: 1770, y: -244}
   m_SizeDelta: {x: 300, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7651131489806978719
@@ -189,21 +189,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pirate
       objectReference: {fileID: 0}
-    - target: {fileID: 6246486636427579569, guid: 3e261c5646a26ca4c9f8c1519c3cfd66, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
+    - target: {fileID: 6246486637360066327, guid: 3e261c5646a26ca4c9f8c1519c3cfd66, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
       objectReference: {fileID: 0}
-    - target: {fileID: 6246486636843029813, guid: 3e261c5646a26ca4c9f8c1519c3cfd66, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
-      objectReference: {fileID: 0}
-    - target: {fileID: 6246486637360066324, guid: 3e261c5646a26ca4c9f8c1519c3cfd66, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
-      objectReference: {fileID: 0}
-    - target: {fileID: 6246486637621388250, guid: 3e261c5646a26ca4c9f8c1519c3cfd66, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190080
+    - target: {fileID: 6246486637360066327, guid: 3e261c5646a26ca4c9f8c1519c3cfd66, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 140
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e261c5646a26ca4c9f8c1519c3cfd66, type: 3}
