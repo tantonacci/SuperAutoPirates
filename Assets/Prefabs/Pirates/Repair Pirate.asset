@@ -16,8 +16,8 @@ MonoBehaviour:
   name: Akira
   desc: Repairer
   artwork: {fileID: 21300000, guid: d1019b8182bb8784bbf8eb1b44c60fb7, type: 3}
-  attack: 2
-  health: 2
+  attack: 3
+  health: 1
   pirateType: 25
   poison: 0
   confused: 0

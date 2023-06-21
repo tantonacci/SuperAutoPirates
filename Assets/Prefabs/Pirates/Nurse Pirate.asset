@@ -16,8 +16,8 @@ MonoBehaviour:
   name: Heidi
   desc: Nurse
   artwork: {fileID: 21300000, guid: cf2721e86e0be634c8be0c9f481f7bcf, type: 3}
-  attack: 1
-  health: 2
+  attack: 2
+  health: 3
   pirateType: 18
   poison: 0
   confused: 0

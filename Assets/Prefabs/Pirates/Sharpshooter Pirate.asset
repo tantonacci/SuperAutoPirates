@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Nico
   desc: Sharpshooter
   artwork: {fileID: 21300000, guid: 37ce215b9a913f64290e6accd13c3b66, type: 3}
-  attack: 5
+  attack: 1
   health: 1
   pirateType: 5
   poison: 0

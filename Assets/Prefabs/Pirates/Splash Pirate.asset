@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Lukas
   desc: Splash
   artwork: {fileID: 21300000, guid: 31e9d60fc2ab5344ea17bd2419437c8b, type: 3}
-  attack: 2
+  attack: 1
   health: 3
   pirateType: 23
   poison: 0

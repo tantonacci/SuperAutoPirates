@@ -16,8 +16,8 @@ MonoBehaviour:
   name: Xiang
   desc: Gambler
   artwork: {fileID: 21300000, guid: 1d47d3b67211d784ebce7340418c49ba, type: 3}
-  attack: 3
-  health: 3
+  attack: 2
+  health: 2
   pirateType: 22
   poison: 0
   confused: 0
