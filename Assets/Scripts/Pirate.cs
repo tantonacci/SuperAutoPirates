@@ -277,7 +277,7 @@ public class Pirate : ScriptableObject {
     public void PostAttack() {
         Print();
 		if (poison) {
-			health -= 2;
+			health -= 1;
 		}
 
 		if (disabled) {
@@ -379,7 +379,7 @@ public class Pirate : ScriptableObject {
 		}
 
 		Pirate p = myTeam.GetPirate(slotNum - 1);
-		p.attack += 2;
+		p.attack += 1;
 	}
 	
 	void prePrincess() {
@@ -393,12 +393,12 @@ public class Pirate : ScriptableObject {
 			int rng = Random.Range(1,100);
 			switch(pos) {
 				case 0:
-					if(rng <= 20){
+					if(rng <= 50){
 						p.disabled = true;
 					}
 					break;
 				case 1:
-					if(rng <= 15){
+					if(rng <= 25){
 						p.disabled = true;
 					}
 					break;
@@ -426,8 +426,8 @@ public class Pirate : ScriptableObject {
 		Pirate p1 = myTeam.GetPirate(slotNum - 1);
 		Pirate p2 = myTeam.GetPirate(slotNum + 1);
 
-		if (p1 != null) p1.Heal(2);
-		if (p2 != null) p2.Heal(2);
+		if (p1 != null) p1.Heal(1);
+		if (p2 != null) p2.Heal(1);
 	}
 		
 	void preConfuse() {
@@ -436,7 +436,7 @@ public class Pirate : ScriptableObject {
             return;
         }
 		
-		if(Random.Range(1,100) > 50) {
+		if(Random.Range(0,100) < 33) {
 			Pirate p = enemyTeam.GetFirstPirate();
 			Pirate p2 = enemyTeam.GetPirate(1); //Getting Second pirate
 			if (p2 != null) {
@@ -458,16 +458,14 @@ public class Pirate : ScriptableObject {
         }
 		
 		Pirate p = enemyTeam.GetFirstPirate();
-		int rng = Random.Range(1, 100);
-		if(rng <= 50){
+		if(Random.Range(0, 100) < 50){
 			p.disabled = true;
 		}
 	}
 	
 	void preHack() {
 		Pirate p = enemyTeam.GetRandomPirate();
-		int rng = Random.Range(1, 100);
-		if(rng <= 50){
+		if(Random.Range(0, 100) < 80){
 			p.disabled = true;
 		}
 	}
@@ -485,9 +483,9 @@ public class Pirate : ScriptableObject {
 	void preDistributor() {
 		Pirate p = myTeam.GetRandomPirate();
 		if(Random.Range(0, 1) == 0) {
-			p.attack += 3;
+			p.attack += 1;
 		} else {
-			p.Heal(3);
+			p.Heal(1);
 		}
 	}
 	
@@ -546,7 +544,7 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-		if (Random.Range(0, 100) > 20) {
+		if (Random.Range(0, 100) < 20) {
 			GetTarget().TakeDamage(100, this);
 		} else {
         	GetTarget().TakeDamage(attack, this);
@@ -582,7 +580,7 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-		int rng = Random.Range(1,3);
+		int rng = Random.Range(1,2);
 		GetTarget().attack -= rng;
 		if(GetTarget().attack <= 0){
 			GetTarget().attack = 1;
@@ -610,7 +608,7 @@ public class Pirate : ScriptableObject {
 		Pirate p = myTeam.GetPirate(slotNum - 1);
 
 		if (p != null) {
-			p.Heal(3);
+			p.Heal(2);
 		}
 	}
 	
@@ -634,8 +632,8 @@ public class Pirate : ScriptableObject {
 		Pirate enemy = enemyTeam.GetRandomPirate();
 		Pirate friend = myTeam.GetRandomPirate();
 
-		enemy.TakeDamage(2, this);
-		friend.Heal(2);
+		enemy.TakeDamage(1, this);
+		friend.Heal(1);
 	}
 
 #endregion

@@ -31,11 +31,12 @@ public class PirateDisplay : MonoBehaviour {
         descText.text = pirate.desc;
 
         if (pirate.IsLeftTeam()) {
-            
-            Debug.Log("Should be flipping");     
+               
             Vector3 theScale = artwork.transform.localScale;
             theScale.x *= -1;
-            artwork.transform.localScale = theScale;
+			if(artwork.transform.localScale.x > 0){
+				artwork.transform.localScale = theScale;
+			}
         }
         artwork.sprite = pirate.artwork;
 
