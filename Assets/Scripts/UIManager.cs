@@ -6,6 +6,9 @@ public class UIManager : MonoBehaviour
 {
 
     public GameObject LevelManager;
+    public GameObject BattleUI;
+    public GameObject WinScreen;
+    public GameObject LoseScreen;
 	public AudioSource audio1;
 	public AudioSource audio2;
 
@@ -23,6 +26,18 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Win() {
+        LevelManager.SetActive(false);
+        BattleUI.SetActive(false);
+        WinScreen.SetActive(true);
+    }
+
+    public void Lose() {
+        LevelManager.SetActive(false);
+        BattleUI.SetActive(false);
+        LoseScreen.SetActive(true);
     }
 
     public void Play() {

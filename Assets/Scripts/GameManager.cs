@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameState gameState;
 
+    public GameObject UI;
     public GameObject teamLeft;
     public GameObject teamRight;
     private TeamManager teamL;
@@ -112,15 +113,20 @@ public class GameManager : MonoBehaviour
     }
 
     void CheckWinCondition() {
+        UIManager ui = UI.GetComponent<UIManager>();
+
         if (!teamL.HasMembersRemaining() && !teamR.HasMembersRemaining()) {
             Print("Tie game");
             gameState = GameState.Tie;
+            ui.Lose();
         } else if (!teamL.HasMembersRemaining()) {
             Print("Right Team Wins");
             gameState = GameState.Lose;
+            ui.Lose();
         } else if (!teamR.HasMembersRemaining()) {
             Print("Left Team Wins");
             gameState = GameState.Win;
+            ui.Win();
         }
     }
 
