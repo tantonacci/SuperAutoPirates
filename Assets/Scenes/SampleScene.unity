@@ -1646,6 +1646,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8194710008484340872, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
+      propertyPath: pirate
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a65d2ba05dfcfb4585a2ae3538cc4ac, type: 2}
     - target: {fileID: 8455513272954875121, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1661,6 +1665,30 @@ PrefabInstance:
     - target: {fileID: 8455513272954875121, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516759574525919814, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516759574525919814, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2124248100}
+    - target: {fileID: 8516759574525919814, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddPirateToTeam
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516759574525919814, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8516759574525919814, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 6a65d2ba05dfcfb4585a2ae3538cc4ac, type: 2}
+    - target: {fileID: 8516759574525919814, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Pirate, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8516759574525919819, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1680,7 +1708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526901441710147240, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8526901441881647988, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
       propertyPath: m_Name
@@ -1692,7 +1720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526901442942730083, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8526901443653572620, guid: 33a3e6eb25434b446957139723eec79f, type: 3}
       propertyPath: m_Pivot.x

@@ -3173,10 +3173,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 371840936}
     m_Modifications:
-    - target: {fileID: 7651131489185965626, guid: 40ec2c86d98c340439c95e7e4d5d527b, type: 3}
-      propertyPath: game
-      value: 
-      objectReference: {fileID: 258994545015887908}
     - target: {fileID: 7651131489806978716, guid: 40ec2c86d98c340439c95e7e4d5d527b, type: 3}
       propertyPath: m_Name
       value: Pirate Select
