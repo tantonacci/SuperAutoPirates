@@ -45,7 +45,18 @@ public class Pirate : ScriptableObject {
         slotNum = myTeam.team.IndexOf(this);
     }
 
-	public void TakeDamage(int dmg) {
+	public void TakeDamage(int dmg, Pirate attacker) {
+
+		if (pirateType == PirateType.rubber) {
+			int returnDmg = dmg/2;
+
+			if (returnDmg > 0) attacker.TakeDamage(returnDmg, this);
+		}
+
+		if (pirateType == PirateType.millenial) {
+			attacker.attack -= 2;
+		}
+
 		if(myTeam.GetPirate(slotNum) != null){
 			if(myTeam.GetPirate(slotNum).pirateType == PirateType.repair){
 				dmg -= 1;
@@ -65,9 +76,12 @@ public class Pirate : ScriptableObject {
 		
 		if(pirateType == PirateType.anarchist){
 			dmg /= myTeam.team.Count;
+			if (dmg == 0) dmg = 1;
+
 			foreach(Pirate p in myTeam.team){
 				p.health -= dmg;
 			}
+			return;
 		}
 		else if(pirateType == PirateType.quick){
 			int rng = Random.Range(1, 100);
@@ -75,9 +89,9 @@ public class Pirate : ScriptableObject {
 				return;
 			}
 		}
-		else{
-			health -= dmg;
-		}
+
+		health -= dmg;
+
 
 		if (music) {
 			health -= 1;
@@ -314,7 +328,9 @@ public class Pirate : ScriptableObject {
 		lucky,
 		repair,
 		anarchist,
-		quick
+		quick,
+		rubber,
+		millenial
 	}
 
 #endregion
@@ -389,7 +405,7 @@ public class Pirate : ScriptableObject {
 	
 	void preSharpShooter() {
 		Pirate p = enemyTeam.GetLastPirate();
-		p.TakeDamage(attack);
+		p.TakeDamage(attack, this);
 	}
 	
 	void preArmory() {
@@ -482,11 +498,11 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-		target.TakeDamage(attack);
+		target.TakeDamage(attack, this);
     }
 	
 	void atkRanged() {
-		target.TakeDamage(attack);
+		target.TakeDamage(attack, this);
     }
 	
 	void atkPoison() {
@@ -496,7 +512,7 @@ public class Pirate : ScriptableObject {
         }
 
         target.poison = true;
-		target.TakeDamage(attack);
+		target.TakeDamage(attack, this);
 	}
 	
 	void atkCyborg() {
@@ -506,7 +522,7 @@ public class Pirate : ScriptableObject {
         }
 		
 		foreach(Pirate p in enemyTeam.team){
-			p.TakeDamage(attack);
+			p.TakeDamage(attack, this);
 		}
 	}
 	
@@ -517,9 +533,9 @@ public class Pirate : ScriptableObject {
         }
 
 		if (Random.Range(0, 100) > 20) {
-			target.TakeDamage(100);
+			target.TakeDamage(100, this);
 		} else {
-        	target.TakeDamage(attack);
+        	target.TakeDamage(attack, this);
 		}
 	}
 	
@@ -531,7 +547,7 @@ public class Pirate : ScriptableObject {
 
 		int rng = Random.Range(0,100);
 		int tempAttack = (int)(attack * ((50.0 + rng) / 100.0));
-		target.TakeDamage(tempAttack);
+		target.TakeDamage(tempAttack, this);
 	}
 	
 	void atkMuscle() {
@@ -543,7 +559,7 @@ public class Pirate : ScriptableObject {
 			muscleTurn = true;
 			return;
 		}
-		target.TakeDamage(attack);
+		target.TakeDamage(attack, this);
 	}
 	
 	void atkSpace() {
@@ -565,10 +581,10 @@ public class Pirate : ScriptableObject {
             return;
         }
 
-		target.TakeDamage(attack);
+		target.TakeDamage(attack, this);
 
 		Pirate p = enemyTeam.GetRandomPirate();
-		p.TakeDamage((int)Mathf.Floor(attack / 2));
+		p.TakeDamage((int)Mathf.Floor(attack / 2), this);
     }
 
 #endregion	
@@ -586,7 +602,7 @@ public class Pirate : ScriptableObject {
 	
 	void pstFlameShooter() {
 		Pirate p = enemyTeam.GetFirstPirate();
-		p.TakeDamage(attack);
+		p.TakeDamage(attack, this);
 	}
 	
 	void pstTeacher() {
@@ -604,7 +620,7 @@ public class Pirate : ScriptableObject {
 		Pirate enemy = enemyTeam.GetRandomPirate();
 		Pirate friend = myTeam.GetRandomPirate();
 
-		enemy.TakeDamage(2);
+		enemy.TakeDamage(2, this);
 		friend.Heal(2);
 	}
 
