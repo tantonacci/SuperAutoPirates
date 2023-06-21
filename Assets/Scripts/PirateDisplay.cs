@@ -30,6 +30,13 @@ public class PirateDisplay : MonoBehaviour {
         nameText.text = pirate.name;
         descText.text = pirate.desc;
 
+        if (pirate.IsLeftTeam()) {
+            
+            Debug.Log("Should be flipping");     
+            Vector3 theScale = artwork.transform.localScale;
+            theScale.x *= -1;
+            artwork.transform.localScale = theScale;
+        }
         artwork.sprite = pirate.artwork;
 
         attackText.text = pirate.attack.ToString();

@@ -34,6 +34,14 @@ public class Pirate : ScriptableObject {
 
 #region "Properties"
 
+	public bool IsLeftTeam() {
+		if (myTeam == null) {
+			return false;
+		}
+
+		return myTeam.side == Side.Left;
+	}
+
     public void SetTeams(TeamManager team1, TeamManager team2) {
         myTeam = team1;
         enemyTeam = team2;
